@@ -1,0 +1,105 @@
+@use '../utils'as utils;
+@use './colors'as *;
+@use '../utils/functions'as fn;
+@use '../utils/fonts'as *;
+@use '../utils/mixins'as *;
+
+
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -webkit-text-stroke-width: 0.1px;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #fff9);
+  border-radius: 20px;
+
+  &:hover {
+    background: linear-gradient(transparent, #fff);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+
+a,
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a,
+a:visited,
+a:active {
+  cursor: pointer;
+  letter-spacing: fn.rem(0.2);
+  text-decoration: none;
+}
+
+button {
+  outline: none;
+  border: none;
+}
+
+ul {
+  list-style: none;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  letter-spacing: 0.5;
+}
+
+body {
+  font-weight: 400;
+  min-height: 100vh;
+}
+
+.light {
+
+  .text {
+    color: #000;
+  }
+
+  .bg {
+    background-color: #fff
+  }
+
+  .alt-bg {
+    background-color: #fff;
+  }
+
+  .alt-text {
+    font-weight: 600
+  }
+
+}
+
+
+/////////////////////////////////////////Dark theme
+.dark {}

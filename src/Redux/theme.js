@@ -15,8 +15,11 @@ export const Theme = createSlice({
     darkMode: (state) => {
       state.value = 'dark'
     },
+    user: (state, action) => {
+      state.value = action.payload
+    },
   },
 })
 
-export const { lightMode, darkMode } = Theme.actions
+export const { lightMode, darkMode, user } = Theme.actions
 export default Theme.reducer

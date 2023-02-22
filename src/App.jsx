@@ -1,20 +1,15 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { darkMode, lightMode, user } from './Redux/theme'
-
-const demo = {
-  id: 1,
-  name: 'ezeh',
-}
+import { darkMode, lightMode } from './Redux/themeReducer'
 
 function App() {
-  const { value } = useSelector((state) => state.theme)
-  
+  const currentTheme = useSelector((state) => state.theme.value)
+
   const dispatch = useDispatch()
   return (
     <div>
-      <h1>{value.name}</h1>
-      {value === 'light' ? (
+      <h1>{currentTheme}</h1>
+      {currentTheme === 'light' ? (
         <button type="button" onClick={() => dispatch(darkMode())}>
           dark
         </button>

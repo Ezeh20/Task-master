@@ -15,9 +15,6 @@ export const Theme = createSlice({
     darkMode: (state) => {
       state.value = 'dark'
     },
-    user: (state, action) => {
-      state.value = action.payload
-    },
   },
 })
 

@@ -77,29 +77,68 @@ li {
 
 body {
   font-weight: 400;
-  min-height: 100vh;
+  background-color: $VeryLightGrayishBlue;
+  font-size: fn.rem(18);
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .light {
 
   .text {
-    color: #000;
-  }
-
-  .bg {
-    background-color: #fff
-  }
-
-  .alt-bg {
-    background-color: #fff;
+    color: $VeryDarkGrayishBlue;
   }
 
   .alt-text {
-    font-weight: 600
+    color: $DarkGrayishBlue;
+  }
+
+  .text-hover {
+    color: $VeryDarkGrayishBlue
+  }
+
+  .bg {
+    background-color: $VeryLightGrayishBlue
+  }
+
+  .content-bg {
+    background-color: $VeryDarkGrayishBlue
+  }
+
+  .header {
+    background: url(../../../public/images/bg-mobile-light.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
 }
 
 
 /////////////////////////////////////////Dark theme
-.dark {}
+.dark {
+  .text {
+    color: $LightGrayishBlue
+  }
+
+  .alt-text {
+    color: $DarkGrayishBlue;
+  }
+
+  .text-hover {
+    color: $LightGrayishBlue-hover
+  }
+
+  .bg {
+    background-color: $VeryDarkBlue
+  }
+
+  .content-bg {
+    background-color: $VeryDarkDesaturatedBlue;
+  }
+
+  .header {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background: url(../../../public/images/bg-desktop-dark.jpg);
+  }
+
+}

@@ -1,0 +1,34 @@
+@mixin view($size) {
+    @media screen and (min-width: $size) {
+        @content
+    }
+}
+
+;
+
+@mixin viewMax($size) {
+    @media screen and (max-width: $size) {
+        @content
+    }
+}
+
+;
+
+/*******************Display********************/
+@mixin flex($direction, $columnGap, $rowGap) {
+    display: flex;
+    flex-direction: $direction;
+    column-gap: $columnGap;
+    row-gap: $rowGap;
+}
+
+;
+
+@mixin flexAd($direction, $columnGap, $rowGap, $alignItems, $justifyContent) {
+    display: flex;
+    flex-direction: $direction;
+    column-gap: $columnGap;
+    row-gap: $rowGap;
+    align-items: $alignItems;
+    justify-content: $justifyContent;
+}

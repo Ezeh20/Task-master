@@ -1,0 +1,35 @@
+@use '../../scss/utils/functions'as fn;
+@use '../../scss/utils/mixins'as *;
+@use '../../scss/global/colors'as *;
+
+.navigation {
+    .header {
+        height: 12rem;
+        width: 100%;
+        position: sticky;
+        top: 0;
+
+        .nav {
+            @include flexAd(_, _, _, center, space-between);
+            padding-top: 3rem;
+
+            .logo {
+                letter-spacing: fn.rem(8);
+                color: $VeryLightGray;
+                font-size: 25px;
+                margin-top: fn.rem(6);
+                font-weight: 700
+            }
+
+            .userIntra {
+                @include flexAd(_, fn.rem(30), _, center, _);
+
+                .userAccount {
+                    width: 1.2rem;
+                    height: 1.2rem;
+                    color: $VeryLightGray;
+                }
+            }
+        }
+    }
+}

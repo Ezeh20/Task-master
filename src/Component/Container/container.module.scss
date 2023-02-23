@@ -1,0 +1,11 @@
+@use '../../scss/utils/mixins.scss'as *;
+@use '../../scss/utils/functions'as fn;
+
+.container {
+    margin-inline: 1.5rem;
+    max-width: fn.rem(500);
+
+    @include view(500px) {
+        margin-inline: auto;
+    }
+}

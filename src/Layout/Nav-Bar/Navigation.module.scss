@@ -19,30 +19,36 @@
                 letter-spacing: fn.rem(8);
                 color: $VeryLightGray;
                 font-size: 25px;
-                margin-top: fn.rem(6);
+                margin-top: fn.rem(1);
                 font-weight: 700
             }
 
             .userIntra {
-                @include flexAd(_, fn.rem(30), _, center, _);
+                @include flexAd(_, fn.rem(20), _, _, _);
 
                 .userAccount {
                     width: 1.2rem;
                     height: 1.2rem;
                     color: $VeryLightGray;
+                    &:hover{
+                        cursor: pointer;
+                    }
                 }
             }
 
             .auth {
                 position: absolute;
                 right: 0;
-                background-color: $VeryLightGrayishBlue;
+                background-color:$VeryLightGrayishBlue;
                 transition: all .2s ease-in-out;
                 top: -10rem;
-                display: flex;
-                column-gap: .5rem;
-                padding: .5rem;
-                color: $VeryDarkGrayishBlue;
+                .login{
+                    padding: .5rem;
+                    column-gap: .3rem;
+                    width: 100%;
+                    align-items: center;
+                    color: $VeryDarkGrayishBlue;
+                }
             }
 
             .authActive {

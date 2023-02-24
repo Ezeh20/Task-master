@@ -1,0 +1,24 @@
+@use '../../scss/utils/functions'as fn;
+@use '../../scss/utils/mixins'as *;
+@use '../../scss/global/colors'as *;
+
+.login {
+    position: relative;
+
+    .loginTitle {
+        position: relative;
+        top: -4rem;
+        @include flexAd(_, _, _, _, center);
+
+        .loginSub {
+            font-size: fn.rem(30);
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: $VeryLightGray;
+        }
+    }
+
+    .loginInput {
+        width: 100%;
+    }
+}

@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RiShieldUserFill } from 'react-icons/ri'
 import { BsMoonFill, BsFillSunFill } from 'react-icons/bs'
 import { BiDoorOpen } from 'react-icons/bi'
+import { Link } from 'react-router-dom'
 import { darkMode, lightMode } from '../../Redux/themeReducer'
 import styles from './Navigation.module.scss'
 import Container from '../../Component/Container/container'
-import Login from '../../userAuth/Login'
-import SignUp from '../../userAuth/Sign-up'
 
 function Navigation() {
   const [active, setActive] = useState(false)
@@ -47,8 +46,9 @@ function Navigation() {
                   : `${styles.auth}`
               }`}
             >
-              <BiDoorOpen />
-              <Login />
+              <Link to="/login" className={styles.login}>
+                <BiDoorOpen /> Login
+              </Link>
             </div>
           </nav>
         </Container>

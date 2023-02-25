@@ -20,5 +20,70 @@
 
     .loginInput {
         width: 100%;
+        background-color: transparent;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        row-gap: 2rem;
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            row-gap: 3rem;
+            margin-top: 2rem;
+
+            .inputLocation {
+                position: relative;
+                @include flex(column, _, _);
+
+                .label {
+                    position: absolute;
+                    opacity: .7;
+                    pointer-events: none;
+                    transition: all .5s;
+                    font-size: fn.rem(18);
+                }
+
+                .Input {
+                    border-bottom: 1px solid $BrightBlue;
+                    padding-top: .5rem;
+                    color: $BrightBlue ;
+                    font-size: fn.rem(17);
+
+                    &:focus~.label {
+                        top: fn.rem(-14);
+                        font-size: fn.rem(16);
+                        color: $BrightBlue;
+                    }
+                }
+
+                .shrink {
+                    top: fn.rem(-14);
+                    font-size: fn.rem(16);
+                    transition: all .5s;
+                    color: $BrightBlue;
+                }
+            }
+            .nullAccount{
+                @include flex(column,_, fn.rem(12));
+                .nullText{
+                    text-align: center
+                }
+            }
+        }
+
+        .googleAuth {
+            @include flex(column,_,fn.rem(10));
+            margin-bottom: 2rem;
+
+            .OR {
+                text-align: center;
+            }
+        }
+    }
+    .inputLocation small{
+        color: rgb(242, 81, 81);
+        font-weight: 400;
+        margin-top: .5rem;
     }
 }

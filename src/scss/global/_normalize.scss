@@ -42,7 +42,14 @@ html {
 img {
   max-width: 100%;
 }
-
+input{
+  outline: none;
+  background-color: transparent;
+  border: none;
+}
+input[type='password'] {
+  letter-spacing: .4rem;
+}
 
 a,
 button {
@@ -120,7 +127,7 @@ body {
   }
 
   .alt-text {
-    color: $DarkGrayishBlue;
+    color: $LightGrayishBlue-hover;
   }
 
   .text-hover {

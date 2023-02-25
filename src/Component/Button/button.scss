@@ -1,0 +1,54 @@
+@use '../../scss/global/colors'as *;
+@use '../../scss/utils/functions'as *;
+
+.customButton {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: all .3s ease-in-out;
+}
+
+.light {
+    .customButton {
+        background-color: $VeryLightGrayishBlue;
+        border: 1px solid $DarkGrayishBlue;
+        color: $VeryDarkGrayishBlue;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $VeryDarkGrayishBlue;
+            color: $VeryLightGray;
+        }
+
+        &.google {
+            border: 1px solid $BrightBlue;
+
+            &:hover {
+                background-color: $BrightBlue;
+            }
+        }
+    }
+}
+
+.dark {
+    .customButton {
+        background-color: transparent;
+        border: 1px solid $DarkGrayishBlue;
+        color: $VeryLightGrayishBlue;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $VeryDarkGrayishblue;
+            color: $VeryLightGray;
+        }
+
+        &.google {
+            border: 1px solid $BrightBlue;
+
+            &:hover {
+                background-color: $BrightBlue;
+            }
+        }
+    }
+}

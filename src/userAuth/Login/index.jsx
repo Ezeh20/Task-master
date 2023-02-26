@@ -7,7 +7,7 @@ import Button from '../../Component/Button'
 import Container from '../../Component/Container/container'
 import Layout from '../../Layout/Layout'
 import styles from './login.module.scss'
-import { signInRedirect } from '../../utils/firebase'
+import { signInRedirect, signInUserWith, storeUser } from '../../utils/firebase'
 
 function Login() {
   const navigate = useNavigate()
@@ -37,7 +37,29 @@ function Login() {
     setFormValue({ ...formValue, [name]: value })
   }
 
-  const onSubmit = () => {}
+  const clear = () => {
+    setFormValue(defaultValue)
+  }
+
+  const onSubmit = async () => {
+    try {
+      await signInUserWith(email, password)
+      clear()
+      navigate('/')
+    } catch (error) {
+      switch (error.code) {
+        case 'auth/wrong-password':
+          alert('wrong email or password')
+          break
+        case 'auth/user-not-found':
+          alert('wrong email or password')
+          break
+        default:
+          console.log(error)
+      }
+    }
+  }
+
   const signUp = () => {
     navigate('/sign-up')
   }
@@ -56,11 +78,7 @@ function Login() {
               <div className={styles.inputLocation}>
                 <input
                   {...register('email', {
-                    required: 'enter a vaild email address',
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: 'invalid email',
-                    },
+                    required: 'enter your email address',
                   })}
                   onKeyUp={() => {
                     trigger('email')
@@ -88,11 +106,7 @@ function Login() {
               <div className={`${styles.inputLocation}`}>
                 <input
                   {...register('password', {
-                    required: 'You must specify a password',
-                    minLength: {
-                      value: 8,
-                      message: 'password must have at least 8 characters',
-                    },
+                    required: 'enter your password',
                   })}
                   type="password"
                   id="password"

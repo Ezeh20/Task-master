@@ -15,6 +15,7 @@ function Login() {
   // login with google
   const loginGoogle = async () => {
     await signInRedirect()
+    navigate('/')
   }
 
   const {

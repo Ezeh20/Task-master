@@ -4,13 +4,17 @@ import { RiShieldUserFill } from 'react-icons/ri'
 import { BsMoonFill, BsFillSunFill } from 'react-icons/bs'
 import { BiDoorOpen } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
+import { GiExitDoor } from 'react-icons/gi'
+import { ImProfile } from 'react-icons/im'
 import { darkMode, lightMode } from '../../Redux/themeReducer'
 import styles from './Navigation.module.scss'
 import Container from '../../Component/Container/container'
+import { LogOut } from '../../utils/firebase'
 
 function Navigation() {
   const [active, setActive] = useState(false)
   const currentTheme = useSelector((state) => state.theme.value)
+  const currentUser = useSelector((state) => state.user.value)
   const dispatch = useDispatch()
   const toggleActive = () => setActive((curr) => !curr)
 
@@ -21,6 +25,7 @@ function Navigation() {
           <nav className={styles.nav}>
             <Link to="/" className={styles.logo}>
               TODO
+              <p />
             </Link>
             <div className={styles.userIntra}>
               <div className={styles.themeToggle}>
@@ -48,9 +53,28 @@ function Navigation() {
                   : `${styles.auth}`
               }`}
             >
-              <Link to="/login" className={styles.login}>
-                <BiDoorOpen /> Login
-              </Link>
+              {currentUser ? (
+                <div className={styles.authUser}>
+                  <button
+                    type="button"
+                    className={styles.login}
+                    onClick={LogOut}
+                  >
+                    <GiExitDoor /> <p>Logout</p>
+                  </button>
+                  <button type="button">
+                    <Link to="/profile" className={styles.login}>
+                      <ImProfile /> Profile
+                    </Link>
+                  </button>
+                </div>
+              ) : (
+                <button type="button">
+                  <Link to="/login" className={styles.login}>
+                    <BiDoorOpen /> <p>Login</p>
+                  </Link>
+                </button>
+              )}
             </div>
           </nav>
         </Container>

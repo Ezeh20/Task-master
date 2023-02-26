@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './index.scss'
-import UpdateUser from './Redux/authListiner'
+import { UpdateUser } from './Redux/authListener'
 import store from './Redux/store'
 
 ReactDOM.createRoot(document.getElementById('root')).render(

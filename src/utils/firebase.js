@@ -6,6 +6,7 @@ import {
   getAuth,
   signInWithPopup,
   onAuthStateChanged,
+  signOut,
 } from 'firebase/auth'
 import {
   getFirestore,
@@ -14,7 +15,6 @@ import {
   getDoc,
   updateDoc,
 } from 'firebase/firestore'
-import { useEffect } from 'react'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBSP9h-50ess9KnYG9nUUyUKsJe4f0X4fc',
@@ -26,10 +26,9 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-export const auth = getAuth()
+const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
 const db = getFirestore()
-
 provider.setCustomParameters({
   prompt: 'select_account',
 })
@@ -61,3 +60,4 @@ export const storeUser = async (user, additionalInfo = {}) => {
 export const onAuthChangeListener = (callback) =>
   onAuthStateChanged(auth, callback)
 export const signInRedirect = () => signInWithPopup(auth, provider)
+export const LogOut = async () => signOut(auth)

@@ -46,19 +46,18 @@
 
                 .Input {
                     border-bottom: 1px solid $BrightBlue;
-                    padding-top: .5rem;
                     color: $BrightBlue ;
                     font-size: fn.rem(17);
 
                     &:focus~.label {
-                        top: fn.rem(-14);
+                        top: fn.rem(-16);
                         font-size: fn.rem(16);
                         color: $BrightBlue;
                     }
                 }
 
                 .shrink {
-                    top: fn.rem(-14);
+                    top: fn.rem(-16);
                     font-size: fn.rem(16);
                     transition: all .5s;
                     color: $BrightBlue;

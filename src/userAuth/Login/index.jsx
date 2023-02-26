@@ -1,19 +1,25 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../Component/Button'
 import Container from '../../Component/Container/container'
-import FormInput from '../../Component/FormInput'
 import Layout from '../../Layout/Layout'
 import styles from './login.module.scss'
+import { signInRedirect } from '../../utils/firebase'
 
 function Login() {
+  const navigate = useNavigate()
+
+  // login with google
+  const loginGoogle = async () => {
+    await signInRedirect()
+  }
+
   const {
     register,
     handleSubmit,
-    reset,
     trigger,
     formState: { errors },
   } = useForm()
@@ -29,8 +35,8 @@ function Login() {
     const { name, value } = event.target
     setFormValue({ ...formValue, [name]: value })
   }
-  const navigate = useNavigate()
 
+  const onSubmit = () => {}
   const signUp = () => {
     navigate('/sign-up')
   }
@@ -42,7 +48,10 @@ function Login() {
             <p className={styles.loginSub}>Login</p>
           </div>
           <section className={styles.loginInput}>
-            <form className={`${styles.form} `}>
+            <form
+              className={`${styles.form} `}
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <div className={styles.inputLocation}>
                 <input
                   {...register('email', {
@@ -103,10 +112,12 @@ function Login() {
                 </label>
                 {errors.password && <small>{errors.password.message}</small>}
               </div>
-              <Button action="submit">Submit</Button>
+              <Button action="submit" buttonType="">
+                Submit
+              </Button>
               <div className={styles.nullAccount}>
                 <p className={styles.nullText}>don`t have an account ?</p>
-                <Button action="button" onClick={signUp}>
+                <Button action="button" buttonType="" onClick={signUp}>
                   Sign up
                 </Button>
               </div>
@@ -114,7 +125,7 @@ function Login() {
 
             <div className={styles.googleAuth}>
               <p className={styles.OR}>OR</p>
-              <Button buttonType="google" action="button">
+              <Button buttonType="google" action="button" onClick={loginGoogle}>
                 Sign in with Google
               </Button>
             </div>

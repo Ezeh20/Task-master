@@ -19,7 +19,9 @@ function Navigation() {
       <header className={`${styles.header} header`}>
         <Container>
           <nav className={styles.nav}>
-            <p className={styles.logo}>TODO</p>
+            <Link to="/" className={styles.logo}>
+              TODO
+            </Link>
             <div className={styles.userIntra}>
               <div className={styles.themeToggle}>
                 {currentTheme === 'light' ? (

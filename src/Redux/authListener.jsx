@@ -12,6 +12,7 @@ export const UpdateUserContext = createContext({
 
 export function UpdateUser({ children }) {
   const [userData, setUserData] = useState([])
+  console.log(userData)
   const dispatch = useDispatch()
   const value = { userData, setUserData }
   // listen for any auth change then update the user object

@@ -7,6 +7,8 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from 'firebase/auth'
 import {
   getFirestore,
@@ -47,6 +49,7 @@ export const storeUser = async (user, additionalInfo = {}) => {
         email,
         created,
         completed,
+        firstName: '',
         ...additionalInfo,
       })
     } catch (err) {
@@ -59,5 +62,16 @@ export const storeUser = async (user, additionalInfo = {}) => {
 
 export const onAuthChangeListener = (callback) =>
   onAuthStateChanged(auth, callback)
+
 export const signInRedirect = () => signInWithPopup(auth, provider)
+
+export const createUser = async (email, password) => {
+  if (!email || !password) return
+  return createUserWithEmailAndPassword(auth, email, password)
+}
+
+export const signInUserWith = async (email, password) => {
+  if (!email || !password) return
+  return signInWithEmailAndPassword(auth, email, password)
+}
 export const LogOut = async () => signOut(auth)

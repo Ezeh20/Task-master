@@ -5,15 +5,14 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../Component/Button'
 import Container from '../../Component/Container/container'
-import FormInput from '../../Component/FormInput'
 import Layout from '../../Layout/Layout'
+import { createUser, storeUser } from '../../utils/firebase'
 import styles from '../Login/login.module.scss'
 
 function SignUp() {
   const {
     register,
     handleSubmit,
-    reset,
     trigger,
     formState: { errors },
   } = useForm()
@@ -23,19 +22,38 @@ function SignUp() {
     lastName: '',
     email: '',
     password: '',
+    confirmPassword: '',
   }
+
   const [formValue, setFormValue] = useState(defaultValue)
-  const { email, password, firstName, lastName } = formValue
+  const { email, password, confirmPassword, firstName, lastName } = formValue
 
   const handleChange = (event) => {
     const { name, value } = event.target
     setFormValue({ ...formValue, [name]: value })
   }
   const navigate = useNavigate()
-
-  const signUp = () => {
-    navigate('/sign-up')
+  const clear = () => {
+    setFormValue(defaultValue)
   }
+
+  const onSubmit = async () => {
+    if (password !== confirmPassword) {
+      alert('password do not match')
+      return
+    }
+    try {
+      const { user } = await createUser(email, password)
+      await storeUser(user, { firstName, lastName })
+      clear()
+      navigate('/')
+    } catch (err) {
+      if (err.code === 'auth/email-already-in-use') {
+        alert('email already exits')
+      }
+    }
+  }
+
   return (
     <div className={`${styles.login} bg alt-text`}>
       <Layout>
@@ -44,7 +62,10 @@ function SignUp() {
             <p className={styles.loginSub}>Sign up</p>
           </div>
           <section className={styles.loginInput}>
-            <form className={`${styles.form} `}>
+            <form
+              className={`${styles.form} `}
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <div className={styles.inputLocation}>
                 <input
                   {...register('firstName', {
@@ -60,7 +81,7 @@ function SignUp() {
                 <label
                   htmlFor="firstName"
                   className={`${
-                    email
+                    firstName
                       ? `${`${styles.label} ${styles.shrink}`}`
                       : `${styles.label} `
                   }`}
@@ -75,7 +96,7 @@ function SignUp() {
                   {...register('lastName', {
                     required: 'lastName can not be blank',
                   })}
-                  type="password"
+                  type="text"
                   id="lastName"
                   name="lastName"
                   onChange={handleChange}
@@ -83,16 +104,16 @@ function SignUp() {
                   className={styles.Input}
                 />
                 <label
-                  htmlFor="password"
+                  htmlFor="lastName"
                   className={`${
-                    password
+                    lastName
                       ? `${`${styles.label} ${styles.shrink}`}`
                       : `${styles.label} `
                   }`}
                 >
                   Last Name
                 </label>
-                {errors.password && <small>{errors.password.message}</small>}
+                {errors.lastName && <small>{errors.lastName.message}</small>}
               </div>
               <div className={styles.inputLocation}>
                 <input
@@ -153,6 +174,33 @@ function SignUp() {
                   Password
                 </label>
                 {errors.password && <small>{errors.password.message}</small>}
+              </div>
+
+              <div className={`${styles.inputLocation}`}>
+                <input
+                  {...register('confirmPassword', {
+                    required: 'confirm your password',
+                  })}
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  onChange={handleChange}
+                  value={confirmPassword}
+                  className={styles.Input}
+                />
+                <label
+                  htmlFor="password"
+                  className={`${
+                    confirmPassword
+                      ? `${`${styles.label} ${styles.shrink}`}`
+                      : `${styles.label} `
+                  }`}
+                >
+                  Confirm Password
+                </label>
+                {errors.confirmPassword && (
+                  <small>{errors.confirmPassword.message}</small>
+                )}
               </div>
               <Button action="submit">Submit</Button>
             </form>

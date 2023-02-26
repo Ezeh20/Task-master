@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/button-has-type */
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -23,7 +24,7 @@ function Button({ children, onClick, buttonType, action }) {
 export default Button
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  onClick: PropTypes.func.isRequired,
-  buttonType: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  buttonType: PropTypes.string,
   action: PropTypes.string.isRequired,
 }

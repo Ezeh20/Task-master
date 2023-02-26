@@ -3,11 +3,13 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
 import Button from '../../Component/Button'
 import Container from '../../Component/Container/container'
 import Layout from '../../Layout/Layout'
 import styles from './login.module.scss'
-import { signInRedirect, signInUserWith, storeUser } from '../../utils/firebase'
+import { signInRedirect, signInUserWith } from '../../utils/firebase'
+import 'react-toastify/dist/ReactToastify.css'
 
 function Login() {
   const navigate = useNavigate()
@@ -40,6 +42,7 @@ function Login() {
   const clear = () => {
     setFormValue(defaultValue)
   }
+  const notify = (message) => toast.error(message)
 
   const onSubmit = async () => {
     try {
@@ -49,13 +52,12 @@ function Login() {
     } catch (error) {
       switch (error.code) {
         case 'auth/wrong-password':
-          alert('wrong email or password')
+          notify('wrong email or password')
           break
         case 'auth/user-not-found':
-          alert('wrong email or password')
+          notify('no user found')
           break
         default:
-          console.log(error)
       }
     }
   }
@@ -147,6 +149,7 @@ function Login() {
           </section>
         </Container>
       </Layout>
+      <ToastContainer />
     </div>
   )
 }

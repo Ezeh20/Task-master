@@ -3,11 +3,13 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
 import Button from '../../Component/Button'
 import Container from '../../Component/Container/container'
 import Layout from '../../Layout/Layout'
 import { createUser, storeUser } from '../../utils/firebase'
 import styles from '../Login/login.module.scss'
+import 'react-toastify/dist/ReactToastify.css'
 
 function SignUp() {
   const {
@@ -37,9 +39,14 @@ function SignUp() {
     setFormValue(defaultValue)
   }
 
+  const notify = (message) => {
+    toast.error(message, {
+      autoClose: 2000,
+    })
+  }
   const onSubmit = async () => {
     if (password !== confirmPassword) {
-      alert('password do not match')
+      notify('password mismatch')
       return
     }
     try {
@@ -49,7 +56,7 @@ function SignUp() {
       navigate('/')
     } catch (err) {
       if (err.code === 'auth/email-already-in-use') {
-        alert('email already exits')
+        notify('email already in use')
       }
     }
   }
@@ -207,6 +214,7 @@ function SignUp() {
           </section>
         </Container>
       </Layout>
+      <ToastContainer />
     </div>
   )
 }

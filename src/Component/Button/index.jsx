@@ -7,6 +7,7 @@ import './button.scss'
 const buttonOptions = {
   default: 'default',
   google: 'google',
+  task: 'task',
 }
 
 function Button({ children, onClick, buttonType, action }) {

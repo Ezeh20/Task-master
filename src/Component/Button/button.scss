@@ -28,6 +28,16 @@
                 background-color: $BrightBlue;
             }
         }
+
+        &.task {
+            border: none;
+            padding: .5rem;
+            width: max-content;
+
+            &:hover {
+                background-color: $BrightBlue;
+            }
+        }
     }
 }
 
@@ -45,6 +55,15 @@
 
         &.google {
             border: 1px solid $BrightBlue;
+
+            &:hover {
+                background-color: $BrightBlue;
+            }
+        }
+        &.task {
+            border: none;
+            padding: .5rem;
+            width: max-content;
 
             &:hover {
                 background-color: $BrightBlue;

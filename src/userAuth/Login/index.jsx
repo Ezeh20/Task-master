@@ -55,7 +55,7 @@ function Login() {
           notify('wrong email or password')
           break
         case 'auth/user-not-found':
-          notify('no user found')
+          notify(`no user found`)
           break
         default:
       }

@@ -1,12 +1,37 @@
-.home{
-    
-    .homeContent{
-        background: #000;
-        margin-top: -5rem;
+@use '../../scss/global/colors'as *;
+@use '../../scss/utils/functions'as fn;
+@use '../../scss/utils/mixins'as *;
+
+.home {
+
+    .homeContent {
+        margin-top: -8rem;
         width: 100%;
-        position:relative;
+        position: relative;
         display: flex;
         justify-content: space-between;
+        border-radius: 5px;
+        padding: 1rem;
         transform: none;
+
+        .iconNinput {
+            display: flex;
+            align-items: center;
+            column-gap: .8rem;
+            width: 100%;
+
+            .crl {
+                width: 20px;
+                height: 20px;
+                border: 1px solid $DarkGrayishBlue;
+                opacity: .3;
+                border-radius: 50%;
+            }
+
+            .taskInput {
+                width: 100%;
+                height: 100%;
+            }
+        }
     }
 }

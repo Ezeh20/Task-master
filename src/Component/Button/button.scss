@@ -32,6 +32,9 @@
         &.task {
             border: none;
             padding: .5rem;
+            padding-inline: 1rem;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
             width: max-content;
 
             &:hover {
@@ -60,9 +63,13 @@
                 background-color: $BrightBlue;
             }
         }
+
         &.task {
             border: none;
             padding: .5rem;
+            padding-inline: 1rem;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
             width: max-content;
 
             &:hover {

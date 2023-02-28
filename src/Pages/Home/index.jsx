@@ -1,7 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { BsPen } from 'react-icons/bs'
+import { BsPen, BsFillDoorOpenFill } from 'react-icons/bs'
 import { GiCheckMark } from 'react-icons/gi'
+import { AiFillLock } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 import Layout from '../../Layout/Layout'
 import Container from '../../Component/Container/container'
 import styles from './home.module.scss'
@@ -16,21 +18,38 @@ function Home() {
       <Layout>
         <Container>
           <div className={`${styles.homeContent} bg `}>
-            <div className={styles.iconNinput}>
-              <div type="button" className={styles.crl} />
-              <input
-                type="text"
-                placeholder="Enter a task"
-                className={`${styles.taskInput} text`}
-                multiple
-              />
+            <div className={`${styles.taskLocation} bg`}>
+              <div className={styles.iconNinput}>
+                <div type="button" className={styles.crl} />
+                <input
+                  type="text"
+                  placeholder="Enter a task"
+                  className={`${styles.taskInput} text`}
+                  multiple
+                />
+              </div>
+              {currentUser ? (
+                <Button buttonType="task">
+                  <BsPen />
+                </Button>
+              ) : (
+                <Link to="/login" className="text">
+                  <AiFillLock className={styles.locked} />
+                </Link>
+              )}
             </div>
-            {
-              currentUser && <Button buttonType="task">
-              <BsPen />
-            </Button>
-            }
           </div>
+          {currentUser ? (
+            <div className={`${styles.userTasks} bg`}>hiii</div>
+          ) : (
+            <Link
+              to="/login"
+              className={`${styles.userTasks} ${styles.userPrompt}`}
+            >
+              <BsFillDoorOpenFill className={styles.prompt} />{' '}
+              <p className="text">login required</p>
+            </Link>
+          )}
         </Container>
       </Layout>
     </div>

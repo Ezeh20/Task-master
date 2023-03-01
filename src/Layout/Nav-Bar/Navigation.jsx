@@ -15,15 +15,13 @@ import { UpdateUserContext } from '../../Redux/authListener'
 function Navigation() {
   const [active, setActive] = useState(false)
   const currentTheme = useSelector((state) => state.theme.value)
-  const currentUser = useSelector((state) => state.user.value)
   const dispatch = useDispatch()
   const toggleActive = () => setActive((curr) => !curr)
-  const { userData, setPending } = useContext(UpdateUserContext)
+  const { userData, setUserData } = useContext(UpdateUserContext)
 
   const rr = async () => {
-     await LogOut()
-    setPending(false)
-    
+    await LogOut()
+    setUserData(null)
   }
 
   return (
@@ -61,7 +59,7 @@ function Navigation() {
                   : `${styles.auth}`
               }`}
             >
-              {currentUser ? (
+              {userData ? (
                 <div className={styles.authUser}>
                   <button type="button" className={styles.login} onClick={rr}>
                     <GiExitDoor /> <p>logout</p>

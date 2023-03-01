@@ -91,7 +91,6 @@ function Login() {
                   onChange={handleChange}
                   value={email}
                   className={styles.Input}
-                  
                 />
                 <label
                   htmlFor="email"

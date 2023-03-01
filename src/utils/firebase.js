@@ -22,9 +22,9 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-const auth = getAuth()
+export const auth = getAuth()
 const provider = new GoogleAuthProvider()
-const db = getFirestore(app)
+export const db = getFirestore(app)
 provider.setCustomParameters({
   prompt: 'select_account',
 })
@@ -34,7 +34,7 @@ export const storeUser = async (user, additionalInfo = {}) => {
   const userSnapShot = await getDoc(userDocRef)
 
   if (!userSnapShot.exists()) {
-    const { displayName, email } = user
+    const { displayName, email, uid } = user
     const created = new Date()
     const completed = []
     try {
@@ -43,7 +43,9 @@ export const storeUser = async (user, additionalInfo = {}) => {
         email,
         created,
         completed,
+        uid,
         firstName: '',
+        lastName: '',
         ...additionalInfo,
       })
     } catch (err) {

@@ -17,11 +17,11 @@ function Navigation() {
   const currentTheme = useSelector((state) => state.theme.value)
   const dispatch = useDispatch()
   const toggleActive = () => setActive((curr) => !curr)
-  const { userData, setUserData } = useContext(UpdateUserContext)
+  const { setLogged, logged } = useContext(UpdateUserContext)
 
-  const rr = async () => {
+  const logOut = async () => {
     await LogOut()
-    setUserData(null)
+    setLogged(null)
   }
 
   return (
@@ -59,9 +59,13 @@ function Navigation() {
                   : `${styles.auth}`
               }`}
             >
-              {userData ? (
+              {logged ? (
                 <div className={styles.authUser}>
-                  <button type="button" className={styles.login} onClick={rr}>
+                  <button
+                    type="button"
+                    className={styles.login}
+                    onClick={logOut}
+                  >
                     <GiExitDoor /> <p>logout</p>
                   </button>
                   <button type="button">

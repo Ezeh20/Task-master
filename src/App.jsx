@@ -9,12 +9,12 @@ import PageNot from './Pages/404'
 import { UpdateUserContext } from './Redux/authListener'
 
 function App() {
-  const { userData } = useContext(UpdateUserContext)
+  const { logged } = useContext(UpdateUserContext)
   const currentTheme = useSelector((state) => state.theme.value)
 
   return (
     <div className={`${currentTheme}`}>
-      {userData ? (
+      {logged ? (
         <Routes>
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />

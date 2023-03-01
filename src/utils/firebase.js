@@ -34,7 +34,7 @@ export const storeUser = async (user, additionalInfo = {}) => {
   const userSnapShot = await getDoc(userDocRef)
 
   if (!userSnapShot.exists()) {
-    const { displayName, email, uid } = user
+    const { displayName, email } = user
     const created = new Date()
     const completed = []
     try {
@@ -43,7 +43,6 @@ export const storeUser = async (user, additionalInfo = {}) => {
         email,
         created,
         completed,
-        uid,
         firstName: '',
         lastName: '',
         ...additionalInfo,

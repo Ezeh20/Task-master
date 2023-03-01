@@ -7,9 +7,9 @@ import { db, onAuthChangeListener, storeUser } from '../utils/firebase'
 import { updateUser } from './userReducer'
 
 export const UpdateUserContext = createContext({
-  userData: [],
-  setUserData: () => {},
-  data: [],
+  data: null,
+  logged: [],
+  setLogged: () => {},
 })
 
 export function UpdateUser({ children }) {
@@ -17,10 +17,10 @@ export function UpdateUser({ children }) {
     ? JSON.parse(localStorage.getItem('todoCii'))
     : null
 
-  const [userData, setUserData] = useState(cc)
-  const [data, setData] = useState([])
+  const [logged, setLogged] = useState(cc)
+  const [data, setData] = useState(null)
   const dispatch = useDispatch()
-  const value = { userData, setUserData, data }
+  const value = { data, logged, setLogged }
 
   // listen for any auth change then update the user object
   useEffect(() => {
@@ -28,18 +28,17 @@ export function UpdateUser({ children }) {
       if (user) {
         // if the user object is true, store the user in fire store
         storeUser(user)
-        // extract basic data from the current user then update the userData state
-        setUserData(user)
+        // update the user
+        dispatch(updateUser(user))
+        setLogged({ active: true })
       }
-      // update the user
-      dispatch(updateUser(user))
     })
     return unsubscribe
   }, [dispatch])
 
   useEffect(() => {
-    localStorage.setItem('todoCii', JSON.stringify(userData))
-  }, [userData])
+    localStorage.setItem('todoCii', JSON.stringify(logged))
+  }, [logged])
 
   // get all users which will be used to filter out the current user using ther user's uid
   useEffect(() => {

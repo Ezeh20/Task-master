@@ -10,7 +10,7 @@ import Button from '../../Component/Button'
 import { UpdateUserContext } from '../../Redux/authListener'
 
 function Home() {
-  const { userData } = useContext(UpdateUserContext)
+  const { logged } = useContext(UpdateUserContext)
 
   return (
     <div className={`${styles.home} text bg`}>
@@ -27,7 +27,7 @@ function Home() {
                   multiple
                 />
               </div>
-              {userData ? (
+              {logged ? (
                 <Button buttonType="task">
                   <BsPen />
                 </Button>
@@ -38,7 +38,7 @@ function Home() {
               )}
             </div>
           </div>
-          {userData ? (
+          {logged ? (
             <div className={`${styles.userTasks} bg`}>hiii</div>
           ) : (
             <Link

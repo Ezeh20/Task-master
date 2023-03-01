@@ -26,6 +26,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="sign-up" element={<SignUp />} />
+          <Route path="profile" element={<Login />} />
           <Route path="*" element={<PageNot />} />
         </Routes>
       )}

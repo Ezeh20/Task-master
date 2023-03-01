@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RiShieldUserFill } from 'react-icons/ri'
 import { BsMoonFill, BsFillSunFill } from 'react-icons/bs'
@@ -10,6 +10,7 @@ import { darkMode, lightMode } from '../../Redux/themeReducer'
 import styles from './Navigation.module.scss'
 import Container from '../../Component/Container/container'
 import { LogOut } from '../../utils/firebase'
+import { UpdateUserContext } from '../../Redux/authListener'
 
 function Navigation() {
   const [active, setActive] = useState(false)
@@ -17,6 +18,13 @@ function Navigation() {
   const currentUser = useSelector((state) => state.user.value)
   const dispatch = useDispatch()
   const toggleActive = () => setActive((curr) => !curr)
+  const { userData, setPending } = useContext(UpdateUserContext)
+
+  const rr = async () => {
+     await LogOut()
+    setPending(false)
+    
+  }
 
   return (
     <div className={styles.navigation}>
@@ -55,12 +63,8 @@ function Navigation() {
             >
               {currentUser ? (
                 <div className={styles.authUser}>
-                  <button
-                    type="button"
-                    className={styles.login}
-                    onClick={LogOut}
-                  >
-                    <GiExitDoor /> <p>Logout</p>
+                  <button type="button" className={styles.login} onClick={rr}>
+                    <GiExitDoor /> <p>logout</p>
                   </button>
                   <button type="button">
                     <Link to="/profile" className={styles.login}>

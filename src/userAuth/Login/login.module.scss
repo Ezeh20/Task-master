@@ -42,6 +42,8 @@
                     pointer-events: none;
                     transition: all .5s;
                     font-size: fn.rem(18);
+                    top: -2px;
+                    
                 }
 
                 .Input {
@@ -50,15 +52,15 @@
                     font-size: fn.rem(17);
 
                     &:focus~.label {
-                        top: fn.rem(-16);
-                        font-size: fn.rem(16);
+                        top: fn.rem(-24);
+                        font-size: fn.rem(14);
                         color: $BrightBlue;
                     }
                 }
 
                 .shrink {
-                    top: fn.rem(-16);
-                    font-size: fn.rem(16);
+                    top: fn.rem(-24);
+                    font-size: fn.rem(14);
                     transition: all .5s;
                     color: $BrightBlue;
                 }

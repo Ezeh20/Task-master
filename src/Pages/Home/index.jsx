@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BsPen, BsFillDoorOpenFill } from 'react-icons/bs'
 import { GiCheckMark } from 'react-icons/gi'
@@ -9,9 +9,11 @@ import Container from '../../Component/Container/container'
 import styles from './home.module.scss'
 import { user } from '../../Redux/themeReducer'
 import Button from '../../Component/Button'
+import { UpdateUserContext } from '../../Redux/authListener'
 
 function Home() {
   const currentUser = useSelector((state) => state.user.value)
+  const { userData, pending } = useContext(UpdateUserContext)
 
   return (
     <div className={`${styles.home} text bg`}>

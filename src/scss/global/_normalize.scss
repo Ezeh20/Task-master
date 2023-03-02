@@ -93,6 +93,7 @@ body {
 
   .text {
     color: $VeryDarkGrayishBlue;
+    font-weight: 400;
   }
 
   .alt-text {
@@ -108,7 +109,7 @@ body {
   }
 
   .content-bg {
-    background-color: $VeryDarkGrayishBlue
+    background-color: $VeryLightGray
   }
 
   .header {
@@ -123,7 +124,8 @@ body {
 /////////////////////////////////////////Dark theme
 .dark {
   .text {
-    color: $LightGrayishBlue
+    color: $LightGrayishBlue;
+    font-weight: 300;
   }
 
   .alt-text {

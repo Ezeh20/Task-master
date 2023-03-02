@@ -10,6 +10,7 @@ import Layout from '../../Layout/Layout'
 import { createUser, storeUser } from '../../utils/firebase'
 import styles from '../Login/login.module.scss'
 import 'react-toastify/dist/ReactToastify.css'
+import Navigation from '../../Layout/Nav-Bar/Navigation'
 
 function SignUp() {
   const {
@@ -64,6 +65,7 @@ function SignUp() {
   return (
     <div className={`${styles.login} bg alt-text`}>
       <Layout>
+        <Navigation />
         <Container>
           <div className={styles.loginTitle}>
             <p className={styles.loginSub}>Sign up</p>

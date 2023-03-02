@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { createContext, useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { db, onAuthChangeListener, storeUser } from '../utils/firebase'
@@ -10,6 +10,7 @@ export const UpdateUserContext = createContext({
   data: null,
   logged: [],
   setLogged: () => {},
+  main: [],
 })
 
 export function UpdateUser({ children }) {
@@ -20,7 +21,15 @@ export function UpdateUser({ children }) {
   const [logged, setLogged] = useState(cc)
   const [data, setData] = useState(null)
   const dispatch = useDispatch()
-  const value = { data, logged, setLogged }
+  const currentUser = useSelector((state) => state.user.value)
+  const [main, setMain] = useState([])
+  const uid = currentUser && currentUser.uid
+  const value = { data, logged, setLogged, main }
+
+  useEffect(() => {
+    const user = data && data.filter((currentData) => currentData.id === uid)
+    setMain(user)
+  }, [data, setMain, uid])
 
   // listen for any auth change then update the user object
   useEffect(() => {

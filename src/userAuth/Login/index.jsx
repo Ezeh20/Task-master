@@ -10,6 +10,7 @@ import Layout from '../../Layout/Layout'
 import styles from './login.module.scss'
 import { signInRedirect, signInUserWith } from '../../utils/firebase'
 import 'react-toastify/dist/ReactToastify.css'
+import Navigation from '../../Layout/Nav-Bar/Navigation'
 
 function Login() {
   const navigate = useNavigate()
@@ -68,6 +69,7 @@ function Login() {
   return (
     <div className={`${styles.login} bg alt-text`}>
       <Layout>
+        <Navigation />
         <Container>
           <div className={styles.loginTitle}>
             <p className={styles.loginSub}>Login</p>

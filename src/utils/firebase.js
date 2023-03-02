@@ -34,15 +34,14 @@ export const storeUser = async (user, additionalInfo = {}) => {
   const userSnapShot = await getDoc(userDocRef)
 
   if (!userSnapShot.exists()) {
-    const { displayName, email } = user
+    const { displayName, email, uid } = user
     const created = new Date()
-    const completed = []
     try {
       await setDoc(userDocRef, {
         displayName,
         email,
         created,
-        completed,
+        uid,
         firstName: '',
         lastName: '',
         ...additionalInfo,

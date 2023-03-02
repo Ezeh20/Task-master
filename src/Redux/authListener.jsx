@@ -2,7 +2,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import { collection, onSnapshot } from 'firebase/firestore'
+import { collection, getDocs, onSnapshot, query } from 'firebase/firestore'
 import { db, onAuthChangeListener, storeUser } from '../utils/firebase'
 import { updateUser } from './userReducer'
 
@@ -11,20 +11,26 @@ export const UpdateUserContext = createContext({
   logged: [],
   setLogged: () => {},
   main: [],
+  id: null,
 })
 
 export function UpdateUser({ children }) {
   const cc = localStorage.getItem('todoCii')
     ? JSON.parse(localStorage.getItem('todoCii'))
     : null
+  const dd = localStorage.getItem('unKnown')
+    ? JSON.parse(localStorage.getItem('unKnown'))
+    : null
 
   const [logged, setLogged] = useState(cc)
+  const [id, setId] = useState(dd)
   const [data, setData] = useState(null)
   const dispatch = useDispatch()
   const currentUser = useSelector((state) => state.user.value)
   const [main, setMain] = useState([])
   const uid = currentUser && currentUser.uid
-  const value = { data, logged, setLogged, main }
+  const value = { data, logged, setLogged, main, id }
+
 
   useEffect(() => {
     const user = data && data.filter((currentData) => currentData.id === uid)
@@ -40,16 +46,22 @@ export function UpdateUser({ children }) {
         // update the user
         dispatch(updateUser(user))
         setLogged({ active: true })
+        setId(uid)
       }
     })
     return unsubscribe
-  }, [dispatch])
+  }, [dispatch, uid])
 
   useEffect(() => {
     localStorage.setItem('todoCii', JSON.stringify(logged))
   }, [logged])
 
+  useEffect(() => {
+    localStorage.setItem('unKnown', JSON.stringify(id))
+  }, [id])
+
   // get all users which will be used to filter out the current user using ther user's uid
+
   useEffect(() => {
     const sub = onSnapshot(collection(db, 'users'), (snaps) => {
       const list = []

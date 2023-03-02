@@ -4,7 +4,15 @@ import { AiFillLock } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { HiXMark } from 'react-icons/hi2'
 import { GrFormCheckmark } from 'react-icons/gr'
-import { collection, doc, getDocs, query, setDoc } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  onSnapshot,
+  query,
+  setDoc,
+} from 'firebase/firestore'
 import Layout from '../../Layout/Layout'
 import Container from '../../Component/Container/container'
 import styles from './home.module.scss'
@@ -14,36 +22,51 @@ import Navigation from '../../Layout/Nav-Bar/Navigation'
 import { db } from '../../utils/firebase'
 
 function Home() {
-  const { logged, main } = useContext(UpdateUserContext)
+  const { logged, data, id } = useContext(UpdateUserContext)
 
   const defaultTask = {
     todo: '',
   }
   const [createTask, setCreateTask] = useState(defaultTask)
+  const [userTodo, setUserTodo] = useState([])
   const { todo } = createTask
   const handleOnchange = (e) => {
     const { name, value } = e.target
     setCreateTask({ ...createTask, [name]: value })
   }
-
+  /**
+   * when the user enter's a task, get the
+   */
   const onCLickk = async () => {
-    const q = query(collection(db, 'users'))
-    const qSnap = await getDocs(q)
     const taskId = Math.floor(Math.random() * 1000000)
     const created = new Date()
     const assignId = `task${taskId}`
+    const q = query(collection(db, 'users'))
+    const qSnap = await getDocs(q)
     const qData = qSnap.docs.map((details) => ({
       ...details.data(),
     }))
-
     qData.map(async (task) => {
-      await setDoc(doc(db, `users/${task.uid}/todos`, 'userTask'), {
+      await addDoc(collection(db, `users/${task.uid}/todos`), {
         id: assignId,
         Todo: todo,
+        completed: false,
         created,
       })
     })
+    setCreateTask(defaultTask)
   }
+  useEffect(() => {
+    const q = query(collection(db, `users/${id}/todos`))
+    const unSub = onSnapshot(q, (qSnap) => {
+      const list = []
+      qSnap.forEach((docf) => {
+        list.push({ ...docf.data() })
+      })
+      setUserTodo(list)
+    })
+    return () => unSub()
+  }, [id])
 
   return (
     <div className={`${styles.home} text bg`}>

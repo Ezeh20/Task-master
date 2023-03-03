@@ -12,6 +12,7 @@ import {
   onSnapshot,
   query,
   setDoc,
+  serverTimestamp,
 } from 'firebase/firestore'
 import Layout from '../../Layout/Layout'
 import Container from '../../Component/Container/container'
@@ -20,6 +21,7 @@ import Button from '../../Component/Button'
 import { UpdateUserContext } from '../../Redux/authListener'
 import Navigation from '../../Layout/Nav-Bar/Navigation'
 import { db } from '../../utils/firebase'
+import DisplayTodo from './home'
 
 function Home() {
   const { logged, data, id } = useContext(UpdateUserContext)
@@ -38,22 +40,21 @@ function Home() {
    * when the user enter's a task, get the
    */
   const onCLickk = async () => {
+    if (!todo) {
+      alert('add')
+      return
+    }
     const taskId = Math.floor(Math.random() * 1000000)
-    const created = new Date()
     const assignId = `task${taskId}`
-    const q = query(collection(db, 'users'))
-    const qSnap = await getDocs(q)
-    const qData = qSnap.docs.map((details) => ({
-      ...details.data(),
-    }))
-    qData.map(async (task) => {
-      await addDoc(collection(db, `users/${task.uid}/todos`), {
-        id: assignId,
-        Todo: todo,
-        completed: false,
-        created,
-      })
+    const sortId = Date.now()
+    await addDoc(collection(db, `users/${id}/todos`), {
+      id: assignId,
+      Todo: todo,
+      completed: false,
+      time: serverTimestamp(),
+      sortId,
     })
+
     setCreateTask(defaultTask)
   }
   useEffect(() => {
@@ -98,7 +99,9 @@ function Home() {
             </div>
           </div>
           {logged ? (
-            <div className={`${styles.userTasks} content-bg `} />
+            <div className={`${styles.userTasks} content-bg `}>
+              <DisplayTodo userTodo={userTodo} uid={id} />
+            </div>
           ) : (
             <Link
               to="/login"

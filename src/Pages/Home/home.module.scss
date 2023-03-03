@@ -49,17 +49,20 @@
                 justify-content: space-between;
                 padding-inline: .8rem;
                 padding-block: 1.2rem;
+                align-items: center;
+                column-gap: 1rem;
 
                 .taskUpper {
                     display: flex;
                     align-items: center;
-                    column-gap: 1.2rem;
+                    column-gap: 1rem;
+                    width: 100%;
 
                     .finishedTask {
                         width: 20px;
                         height: 20px;
                         border-radius: 50%;
-                        background: linear-gradient(hsl(192, 100%, 67%) , hsl(280, 87%, 65%));
+                        background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
                     }
 
                     .pendingTask {
@@ -69,6 +72,15 @@
                         opacity: .3;
                         border-radius: 50%;
 
+                    }
+
+                    .containText {
+                        width: 100%;
+
+                        .todoText {
+                            width: 210px;
+                            word-wrap: break-word;
+                        }
                     }
                 }
             }

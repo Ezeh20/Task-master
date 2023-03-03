@@ -1,16 +1,22 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import { HiXMark } from 'react-icons/hi2'
 import { GrFormCheckmark } from 'react-icons/gr'
 import PropTypes from 'prop-types'
-import { collection, doc, updateDoc } from 'firebase/firestore'
+import { doc, updateDoc } from 'firebase/firestore'
 import styles from './home.module.scss'
 import { db } from '../../utils/firebase'
 
 function DisplayTodo({ userTodo, uid }) {
-  console.log(uid)
-
+  // function to update user's todo
+  const updateTodos = async (tod) => {
+    // get the needed todo document path to update
+    await updateDoc(doc(db, `users/${uid}/todos/${tod.updateId}`), {
+      completed: !tod.completed,
+    })
+  }
   return (
     <>
       {userTodo &&
@@ -24,11 +30,17 @@ function DisplayTodo({ userTodo, uid }) {
                 <div className={styles.allTasks}>
                   <div className={styles.taskUpper}>
                     {todos.completed ? (
-                      <div className={styles.finishedTask}>
+                      <div
+                        className={styles.finishedTask}
+                        onClick={() => updateTodos(todos)}
+                      >
                         <GrFormCheckmark />
                       </div>
                     ) : (
-                      <div className={styles.pendingTask} />
+                      <div
+                        className={styles.pendingTask}
+                        onClick={() => updateTodos(todos)}
+                      />
                     )}
                     <div className={styles.containText}>
                       <p className={styles.todoText}>{todos.Todo}</p>

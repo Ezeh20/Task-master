@@ -2,13 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { BsPen, BsFillDoorOpenFill } from 'react-icons/bs'
 import { AiFillLock } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
-import { HiXMark } from 'react-icons/hi2'
-import { GrFormCheckmark } from 'react-icons/gr'
 import {
-  addDoc,
   collection,
   doc,
-  getDocs,
   onSnapshot,
   query,
   setDoc,
@@ -24,7 +20,7 @@ import { db } from '../../utils/firebase'
 import DisplayTodo from './home'
 
 function Home() {
-  const { logged, data, id } = useContext(UpdateUserContext)
+  const { logged, id } = useContext(UpdateUserContext)
 
   const defaultTask = {
     todo: '',
@@ -47,14 +43,19 @@ function Home() {
     const taskId = Math.floor(Math.random() * 1000000)
     const assignId = `task${taskId}`
     const sortId = Date.now()
-    await addDoc(collection(db, `users/${id}/todos`), {
+    // get the refrence to the user's todos collection
+    const userTodos = doc(collection(db, `users/${id}/todos`))
+    // then set a todo document using the above refrence as the first agru (userTodos)
+    // for future update of this todo document, we would need a doc id which can be extracted
+    // from the doc refrence
+    await setDoc(userTodos, {
       id: assignId,
+      updateId: userTodos.id,
       Todo: todo,
       completed: false,
       time: serverTimestamp(),
       sortId,
     })
-
     setCreateTask(defaultTask)
   }
   useEffect(() => {
@@ -88,8 +89,8 @@ function Home() {
                 />
               </div>
               {logged ? (
-                <Button buttonType="task">
-                  <BsPen onClick={onCLickk} />
+                <Button buttonType="task" onClick={onCLickk}>
+                  <BsPen />
                 </Button>
               ) : (
                 <Link to="/login" className="text">

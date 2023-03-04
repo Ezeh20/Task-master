@@ -2,7 +2,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import { collection, getDocs, onSnapshot, query } from 'firebase/firestore'
+import { collection, onSnapshot } from 'firebase/firestore'
 import { db, onAuthChangeListener, storeUser } from '../utils/firebase'
 import { updateUser } from './userReducer'
 
@@ -30,7 +30,6 @@ export function UpdateUser({ children }) {
   const [main, setMain] = useState([])
   const uid = currentUser && currentUser.uid
   const value = { data, logged, setLogged, main, id }
-
 
   useEffect(() => {
     const user = data && data.filter((currentData) => currentData.id === uid)

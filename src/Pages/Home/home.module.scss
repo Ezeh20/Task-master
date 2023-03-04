@@ -10,8 +10,8 @@
             width: 100%;
             @include flexAd(_, _, _, _, space-between);
             position: relative;
-            border-radius: 5px;
-            height: 50px;
+            border-radius: fn.rem(5);
+            height: fn.rem(50);
             padding-left: 1rem;
             margin-bottom: 1.5rem;
 
@@ -20,11 +20,12 @@
                 width: 100%;
 
                 .crl {
-                    width: 20px;
-                    height: 20px;
+                    width: fn.rem(20);
+                    height: fn.rem(20);
                     border: 1px solid $DarkGrayishBlue;
                     opacity: .3;
                     border-radius: 50%;
+                    padding: .58rem;
                 }
 
                 .taskInput {
@@ -41,47 +42,68 @@
 
     .userTasks {
         position: relative;
-        border-radius: 5px;
+        border-radius: fn.rem(5);
 
         .tasks {
             .allTasks {
-                display: flex;
-                justify-content: space-between;
+                @include flexAd(_, 1rem, _, center, space-between);
                 padding-inline: .8rem;
-                padding-block: 1.2rem;
-                align-items: center;
-                column-gap: 1rem;
 
                 .taskUpper {
-                    display: flex;
-                    align-items: center;
-                    column-gap: 1rem;
+                    @include flexAd(_, .8rem, _, center, _);
                     width: 100%;
+                    height: fn.rem(60);
 
                     .finishedTask {
-                        width: 20px;
-                        height: 20px;
+                        aspect-ratio: 1/1;
+                        padding: .3rem;
+                        @include flexAd(_, _, _, center, center);
                         border-radius: 50%;
                         background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+
+                        .checkedColor {
+                            color: $VeryLightGray;
+                            font-size: fn.rem(12);
+                        }
                     }
 
                     .pendingTask {
-                        width: 20px;
-                        height: 20px;
+                        aspect-ratio: 1/1;
                         border: 1px solid $DarkGrayishBlue;
                         opacity: .3;
+                        padding: calc(.3rem - 1px);
+                        display: flex;
                         border-radius: 50%;
 
+                        .checkedColor {
+                            color: transparent;
+                            font-size: fn.rem(12);
+                        }
                     }
 
                     .containText {
                         width: 100%;
 
                         .todoText {
-                            width: 210px;
+                            width: fn.rem(210);
                             word-wrap: break-word;
                         }
                     }
+                }
+
+                .todoDelete {
+                    font-size: 1.5rem;
+                    color: $DarkGrayishBlue;
+                    opacity: .5;
+                    font-weight: 200;
+
+                    @include view(768px) {
+                        font-size: 2rem;
+                    }
+                }
+
+                &:hover {
+                    cursor: pointer;
                 }
             }
 
@@ -96,24 +118,34 @@
         .overView {
             padding-block: 1.2rem;
             padding-inline: .8rem;
+            display: flex;
+
+            .loadingTasks {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .taskCheck {
+                text-align: center;
+                width: 100%;
+                font-size: 16px;
+            }
         }
 
         .overView p {
-            font-size: 12px;
+            font-size: fn.rem(12);
         }
     }
 
     .userPrompt {
         margin-top: 15rem;
         padding-bottom: 5rem;
-        display: flex;
-        flex-direction: column;
-        row-gap: 1rem;
+        @include flexAd(column, _, 1rem, _, _);
         text-align: center;
 
         .prompt {
             align-self: center;
-            font-size: 60px;
+            font-size: fn.rem(60);
             color: rgb(245, 102, 102);
             border-radius: 50%;
         }

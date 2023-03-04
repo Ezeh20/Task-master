@@ -149,5 +149,9 @@ body {
     background-size: cover;
     background: url(../../../public/images/bg-desktop-dark.jpg);
   }
-
+  ::placeholder{
+    color: $LightGrayishBlue;
+    font-weight: 200;
+  } 
 }
+

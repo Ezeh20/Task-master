@@ -26,7 +26,7 @@ function Home() {
     todo: '',
   }
   const [createTask, setCreateTask] = useState(defaultTask)
-  const [userTodo, setUserTodo] = useState([])
+  const [userTodo, setUserTodo] = useState(null)
   const { todo } = createTask
   const handleOnchange = (e) => {
     const { name, value } = e.target

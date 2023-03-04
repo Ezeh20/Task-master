@@ -42,11 +42,13 @@ html {
 img {
   max-width: 100%;
 }
-input{
+
+input {
   outline: none;
   background-color: transparent;
   border: none;
 }
+
 input[type='password'] {
   letter-spacing: .4rem;
 }
@@ -118,6 +120,11 @@ body {
     background-size: cover;
   }
 
+  .cross {
+    color: $DarkGrayishBlue;
+    opacity: .5;
+  }
+
 }
 
 
@@ -149,9 +156,14 @@ body {
     background-size: cover;
     background: url(../../../public/images/bg-desktop-dark.jpg);
   }
-  ::placeholder{
+
+  ::placeholder {
     color: $LightGrayishBlue;
     font-weight: 200;
-  } 
-}
+  }
 
+  .cross {
+    color: $DarkGrayishBlue;
+    opacity: .5;
+  }
+}

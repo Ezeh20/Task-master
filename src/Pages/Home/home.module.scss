@@ -87,6 +87,12 @@
                         .todoText {
                             width: fn.rem(210);
                             word-wrap: break-word;
+                            text-transform: capitalize;
+                        }
+
+                        .crossOff {
+                            text-decoration: line-through;
+
                         }
                     }
                 }
@@ -119,6 +125,8 @@
             padding-block: 1.2rem;
             padding-inline: .8rem;
             display: flex;
+            justify-content: space-between;
+            position: relative;
 
             .loadingTasks {
                 width: 100%;
@@ -130,10 +138,31 @@
                 width: 100%;
                 font-size: 16px;
             }
+
+            .filterAction {
+                display: flex;
+                justify-content: center;
+                column-gap: 1rem;
+
+                @include viewMax(480px) {
+                    position: absolute;
+                    top: 5rem;
+                    width: 100%;
+                    left: 0;
+                    column-gap: 1.5rem;
+                    padding: 1rem;
+                    border-radius: fn.rem(5);
+
+                }
+            }
         }
 
         .overView p {
-            font-size: fn.rem(12);
+            font-size: fn.rem(14);
+
+            @include view(768px) {
+                font-size: fn.rem(16);
+            }
         }
     }
 

@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable consistent-return */
-/* eslint-disable import/prefer-default-export */
 import { initializeApp } from 'firebase/app'
 import {
   GoogleAuthProvider,
@@ -17,6 +16,7 @@ import {
   setDoc,
   getDoc,
   deleteDoc,
+  updateDoc,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -29,13 +29,13 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-export const auth = getAuth()
+const auth = getAuth()
 const provider = new GoogleAuthProvider()
-export const db = getFirestore(app)
+const db = getFirestore(app)
 provider.setCustomParameters({
   prompt: 'select_account',
 })
-export const storeUser = async (user, additionalInfo = {}) => {
+const storeUser = async (user, additionalInfo = {}) => {
   if (!user) return
   const userDocRef = doc(db, 'users', user.uid)
   const userSnapShot = await getDoc(userDocRef)
@@ -65,7 +65,7 @@ export const storeUser = async (user, additionalInfo = {}) => {
  * filter completed todos then populates a state
  * which will be used to clear completed todos
  */
-export const clearFinishedTask = (userTodo, uid) => {
+const clearFinishedTask = (userTodo, uid) => {
   userTodo &&
     userTodo
       .filter((finished) => finished.completed)
@@ -75,24 +75,43 @@ export const clearFinishedTask = (userTodo, uid) => {
         )
       })
 }
+// function to update user's todo
+const updateTodos = async (toUpdate, uid) => {
+  // get the needed todo document path to update
+  await updateDoc(doc(db, `users/${uid}/todos/${toUpdate.updateId}`), {
+    completed: !toUpdate.completed,
+  })
+}
 // function to delete todos
-export const deleteTodos = async (tod) => {
+const deleteTodos = async (toDelete, uid) => {
   // delete a doc using it's id
-  await deleteDoc(doc(db, `users/${uid}/todos/${tod.updateId}`))
+  await deleteDoc(doc(db, `users/${uid}/todos/${toDelete.updateId}`))
 }
 
-export const onAuthChangeListener = (callback) =>
-  onAuthStateChanged(auth, callback)
+const onAuthChangeListener = (callback) => onAuthStateChanged(auth, callback)
 
-export const signInRedirect = () => signInWithPopup(auth, provider)
+const signInRedirect = () => signInWithPopup(auth, provider)
 
-export const createUser = async (email, password) => {
+const createUser = async (email, password) => {
   if (!email || !password) return
   return createUserWithEmailAndPassword(auth, email, password)
 }
 
-export const signInUserWith = async (email, password) => {
+const signInUserWith = async (email, password) => {
   if (!email || !password) return
   return signInWithEmailAndPassword(auth, email, password)
 }
-export const LogOut = async () => signOut(auth)
+const LogOut = async () => signOut(auth)
+
+export {
+  LogOut,
+  signInUserWith,
+  createUser,
+  signInRedirect,
+  onAuthChangeListener,
+  deleteTodos,
+  updateTodos,
+  clearFinishedTask,
+  storeUser,
+  db,
+}

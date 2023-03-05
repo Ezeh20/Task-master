@@ -7,12 +7,16 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { HiXMark } from 'react-icons/hi2'
 import PropTypes from 'prop-types'
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { IoMdCheckmark } from 'react-icons/io'
 import { TailSpin } from 'react-loader-spinner'
 import { useSelector } from 'react-redux'
+import { motion } from 'framer-motion'
 import styles from './home.module.scss'
-import { db, clearFinishedTask } from '../../utils/firebase'
+import {
+  clearFinishedTask,
+  deleteTodos,
+  updateTodos,
+} from '../../utils/firebase'
 import FilterTask from './filterTask'
 import { UpdateUserContext } from '../../Redux/authListener'
 
@@ -21,19 +25,6 @@ function DisplayTodo({ uid }) {
   const [finishedTasks, setFinishedTasks] = useState([])
   const fetchedTodos = useSelector((state) => state.todo.value)
   const { userTodo } = useContext(UpdateUserContext)
-  // function to update user's todo
-  const updateTodos = async (tod) => {
-    // get the needed todo document path to update
-    await updateDoc(doc(db, `users/${uid}/todos/${tod.updateId}`), {
-      completed: !tod.completed,
-    })
-  }
-
-  // function to delete todos
-  const deleteTodos = async (tod) => {
-    // delete a doc using it's id
-    await deleteDoc(doc(db, `users/${uid}/todos/${tod.updateId}`))
-  }
 
   // count pending todos
   useEffect(() => {
@@ -61,11 +52,18 @@ function DisplayTodo({ uid }) {
           )
           .map((todos) => {
             return (
-              <div key={todos.id} className={styles.tasks}>
+              <motion.div
+                layout
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                key={todos.id}
+                className={styles.tasks}
+              >
                 <div className={styles.allTasks}>
                   <div
                     className={styles.taskUpper}
-                    onClick={() => updateTodos(todos)}
+                    onClick={() => updateTodos(todos, uid)}
                   >
                     {todos.completed ? (
                       <div className={styles.finishedTask}>
@@ -74,7 +72,7 @@ function DisplayTodo({ uid }) {
                     ) : (
                       <div
                         className={styles.pendingTask}
-                        onClick={() => updateTodos(todos)}
+                        onClick={() => updateTodos(todos, uid)}
                       >
                         <IoMdCheckmark className={styles.checkedColor} />
                       </div>
@@ -93,11 +91,11 @@ function DisplayTodo({ uid }) {
                   </div>
                   <HiXMark
                     className={styles.todoDelete}
-                    onClick={() => deleteTodos(todos)}
+                    onClick={() => deleteTodos(todos, uid)}
                   />
                 </div>
                 <div className={styles.hr} />
-              </div>
+              </motion.div>
             )
           })}
       <div className={styles.overView}>

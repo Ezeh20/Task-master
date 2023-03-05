@@ -35,6 +35,7 @@ function Home() {
    * errors are true else run the function
    */
   const onCLickk = async () => {
+    // check if the a new task already exist in the database
     const exist = fetched.find(
       (mapped) => mapped.Todo.toLowerCase() === todo.toLowerCase()
     )
@@ -46,6 +47,7 @@ function Home() {
       toast.error("Can't be empty")
       return
     }
+    // if true, return the function (stop)
     if (exist) {
       toast.error('This task already exist')
       setCreateTask(defaultTask)

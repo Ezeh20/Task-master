@@ -94,7 +94,7 @@ body {
 .light {
 
   .text {
-    color: $VeryDarkGrayishBlue;
+    color: $DarkGrayishBlue;
     font-weight: 400;
   }
 
@@ -102,12 +102,10 @@ body {
     color: $DarkGrayishBlue;
   }
 
-  .text-hover {
-    color: $VeryDarkGrayishBlue
-  }
+
 
   .bg {
-    background-color: $VeryLightGrayishBlue
+    background-color: $VeryLightGrayishBlue;
   }
 
   .content-bg {
@@ -125,6 +123,12 @@ body {
     opacity: .5;
   }
 
+  .hover-action {
+    &:hover {
+      color: $VeryDarkGrayishBlue;
+      cursor: pointer;
+    }
+  }
 }
 
 
@@ -165,5 +169,12 @@ body {
   .cross {
     color: $DarkGrayishBlue;
     opacity: .5;
+  }
+
+  .hover-action {
+    &:hover {
+      color: $VeryLightGray;
+      cursor: pointer;
+    }
   }
 }

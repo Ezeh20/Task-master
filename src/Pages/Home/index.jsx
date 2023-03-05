@@ -1,15 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { BsPen, BsFillDoorOpenFill } from 'react-icons/bs'
 import { AiFillLock } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
-import {
-  collection,
-  doc,
-  onSnapshot,
-  query,
-  setDoc,
-  serverTimestamp,
-} from 'firebase/firestore'
+import { collection, doc, setDoc, serverTimestamp } from 'firebase/firestore'
+import { ToastContainer, toast } from 'react-toastify'
+import { useSelector } from 'react-redux'
 import Layout from '../../Layout/Layout'
 import Container from '../../Component/Container/container'
 import styles from './home.module.scss'
@@ -21,28 +16,42 @@ import DisplayTodo from './home'
 
 function Home() {
   const { logged, id } = useContext(UpdateUserContext)
+  const fetched = useSelector((state) => state.todo.value)
 
   const defaultTask = {
     todo: '',
   }
   const [createTask, setCreateTask] = useState(defaultTask)
-  const [userTodo, setUserTodo] = useState(null)
   const { todo } = createTask
   const handleOnchange = (e) => {
     const { name, value } = e.target
     setCreateTask({ ...createTask, [name]: value })
   }
   /**
-   * when the user enter's a task, get the
+   * when the user submits a task, get  the input value,
+   * use the setDoc method from firebase to write a document in firestore (user specific).
+   * consider error margins such as empty values, the same task in the todo collection
+   * maybe length of todo if you want; then use conditionals to return the function if these
+   * errors are true else run the function
    */
   const onCLickk = async () => {
-    if (!todo) {
-      alert('add')
-      return
-    }
+    const exist = fetched.find(
+      (mapped) => mapped.Todo.toLowerCase() === todo.toLowerCase()
+    )
     const taskId = Math.floor(Math.random() * 1000000)
     const assignId = `task${taskId}`
     const sortId = Date.now()
+
+    if (todo.replaceAll(' ', '').length < 1) {
+      toast.error("Can't be empty")
+      return
+    }
+    if (exist) {
+      toast.error('This task already exist')
+      setCreateTask(defaultTask)
+      return
+    }
+    setCreateTask(defaultTask)
     // get the refrence to the user's todos collection
     const userTodos = doc(collection(db, `users/${id}/todos`))
     // then set a todo document using the above refrence as the first agru (userTodos)
@@ -56,19 +65,7 @@ function Home() {
       time: serverTimestamp(),
       sortId,
     })
-    setCreateTask(defaultTask)
   }
-  useEffect(() => {
-    const q = query(collection(db, `users/${id}/todos`))
-    const unSub = onSnapshot(q, (qSnap) => {
-      const list = []
-      qSnap.forEach((docf) => {
-        list.push({ ...docf.data() })
-      })
-      setUserTodo(list)
-    })
-    return () => unSub()
-  }, [id])
 
   return (
     <div className={`${styles.home} text bg`}>
@@ -101,7 +98,7 @@ function Home() {
           </div>
           {logged ? (
             <div className={`${styles.userTasks} content-bg `}>
-              <DisplayTodo userTodo={userTodo} uid={id} />
+              <DisplayTodo uid={id} />
             </div>
           ) : (
             <Link
@@ -114,6 +111,7 @@ function Home() {
           )}
         </Container>
       </Layout>
+      <ToastContainer />
     </div>
   )
 }

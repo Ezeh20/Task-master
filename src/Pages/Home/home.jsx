@@ -4,19 +4,23 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { HiXMark } from 'react-icons/hi2'
 import PropTypes from 'prop-types'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { IoMdCheckmark } from 'react-icons/io'
 import { TailSpin } from 'react-loader-spinner'
+import { useSelector } from 'react-redux'
 import styles from './home.module.scss'
-import { db } from '../../utils/firebase'
+import { db, clearFinishedTask } from '../../utils/firebase'
 import FilterTask from './filterTask'
+import { UpdateUserContext } from '../../Redux/authListener'
 
-function DisplayTodo({ userTodo, uid }) {
+function DisplayTodo({ uid }) {
   const [pendingTasks, setPendingTasks] = useState([])
   const [finishedTasks, setFinishedTasks] = useState([])
+  const fetchedTodos = useSelector((state) => state.todo.value)
+  const { userTodo } = useContext(UpdateUserContext)
   // function to update user's todo
   const updateTodos = async (tod) => {
     // get the needed todo document path to update
@@ -33,9 +37,9 @@ function DisplayTodo({ userTodo, uid }) {
 
   // count pending todos
   useEffect(() => {
-    const as = userTodo && userTodo.filter((tsd) => !tsd.completed)
+    const as = fetchedTodos && fetchedTodos.filter((tsd) => !tsd.completed)
     setPendingTasks(as)
-  }, [userTodo])
+  }, [fetchedTodos])
 
   /**
    * filter then populate a state with todo
@@ -47,26 +51,11 @@ function DisplayTodo({ userTodo, uid }) {
     setFinishedTasks(completedTasks)
   }, [userTodo])
 
-  /**
-   * function to clear completed todos from the rendered todos
-   * filter completed todos then populates a state
-   * which will be used to clear completed todos
-   */
-
-  const clearFinishedTask = () => {
-    userTodo &&
-      userTodo
-        .filter((finished) => finished.completed)
-        .map(async (completedTodos) => {
-          await deleteDoc(
-            doc(db, `users/${uid}/todos/${completedTodos.updateId}`)
-          )
-        })
-  }
   return (
     <>
       {userTodo &&
         userTodo
+          .slice()
           .sort((a, b) =>
             a.sortId < b.sortId ? -1 : a.sortId > b.sortId ? 1 : 0
           )
@@ -116,7 +105,7 @@ function DisplayTodo({ userTodo, uid }) {
           userTodo.length > 0 ? (
             <p>{pendingTasks && pendingTasks.length} task(s) left</p>
           ) : (
-            <p className={styles.taskCheck}>you don`t have any task</p>
+            <p className={styles.taskCheck}>No task for now</p>
           )
         ) : (
           <TailSpin
@@ -130,9 +119,14 @@ function DisplayTodo({ userTodo, uid }) {
             visible
           />
         )}
-        <FilterTask userTodo={userTodo} />
+        <FilterTask />
+
         {finishedTasks && finishedTasks.length > 0 && (
-          <p type="button" onClick={clearFinishedTask}>
+          <p
+            type="button"
+            onClick={() => clearFinishedTask(userTodo, uid)}
+            className="hover-action"
+          >
             {' '}
             Clear Completed
           </p>
@@ -142,7 +136,6 @@ function DisplayTodo({ userTodo, uid }) {
   )
 }
 DisplayTodo.propTypes = {
-  userTodo: PropTypes.arrayOf(PropTypes.object),
   uid: PropTypes.string.isRequired,
 }
 export default DisplayTodo

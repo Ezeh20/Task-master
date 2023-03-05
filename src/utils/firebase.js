@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable consistent-return */
 /* eslint-disable import/prefer-default-export */
 import { initializeApp } from 'firebase/app'
@@ -10,7 +11,13 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth'
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore'
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  deleteDoc,
+} from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBSP9h-50ess9KnYG9nUUyUKsJe4f0X4fc',
@@ -52,6 +59,26 @@ export const storeUser = async (user, additionalInfo = {}) => {
   } else {
     return userDocRef
   }
+}
+/**
+ * function to clear completed todos from the rendered todos
+ * filter completed todos then populates a state
+ * which will be used to clear completed todos
+ */
+export const clearFinishedTask = (userTodo, uid) => {
+  userTodo &&
+    userTodo
+      .filter((finished) => finished.completed)
+      .map(async (completedTodos) => {
+        await deleteDoc(
+          doc(db, `users/${uid}/todos/${completedTodos.updateId}`)
+        )
+      })
+}
+// function to delete todos
+export const deleteTodos = async (tod) => {
+  // delete a doc using it's id
+  await deleteDoc(doc(db, `users/${uid}/todos/${tod.updateId}`))
 }
 
 export const onAuthChangeListener = (callback) =>

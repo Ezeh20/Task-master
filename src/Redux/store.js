@@ -5,6 +5,7 @@ import { persistReducer, persistStore } from 'redux-persist'
 import thunk from 'redux-thunk'
 import ThemeToggle from './themeReducer'
 import currentUser from './userReducer'
+import userTodos from './todoReducer'
 
 const persistConfig = {
   key: 'root',
@@ -17,6 +18,7 @@ const store = configureStore({
   reducer: {
     theme: presisted,
     user: currentUser,
+    todo: userTodos,
   },
   devTools: process.env.NODE_ENV !== 'production',
   middleware: [thunk],

@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import { IoMdCheckmark } from 'react-icons/io'
 import { TailSpin } from 'react-loader-spinner'
 import { useSelector } from 'react-redux'
-import { motion } from 'framer-motion'
+import { Reorder } from 'framer-motion'
 import styles from './home.module.scss'
 import {
   clearFinishedTask,
@@ -24,8 +24,7 @@ function DisplayTodo({ uid }) {
   const [pendingTasks, setPendingTasks] = useState([])
   const [finishedTasks, setFinishedTasks] = useState([])
   const fetchedTodos = useSelector((state) => state.todo.value)
-  const { userTodo } = useContext(UpdateUserContext)
-
+  const { userTodo, setUserTodo } = useContext(UpdateUserContext)
   // count pending todos
   useEffect(() => {
     const as = fetchedTodos && fetchedTodos.filter((tsd) => !tsd.completed)
@@ -43,94 +42,94 @@ function DisplayTodo({ uid }) {
   }, [userTodo])
 
   return (
-    <>
-      {userTodo &&
-        userTodo
-          .slice()
-          .sort((a, b) =>
-            a.sortId < b.sortId ? -1 : a.sortId > b.sortId ? 1 : 0
-          )
-          .map((todos) => {
-            return (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                key={todos.id}
-                className={styles.tasks}
-              >
-                <div className={styles.allTasks}>
-                  <div
-                    className={styles.taskUpper}
-                    onClick={() => updateTodos(todos, uid)}
-                  >
-                    {todos.completed ? (
-                      <div className={styles.finishedTask}>
-                        <IoMdCheckmark className={styles.checkedColor} />
+    <div>
+      {userTodo && (
+        <Reorder.Group axis="y" onReorder={setUserTodo} values={userTodo}>
+          {userTodo &&
+            userTodo.map((todos) => {
+              return (
+                <Reorder.Item
+                  value={todos}
+                  layout
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                  key={todos.id}
+                  className={styles.tasks}
+                >
+                  <div className={styles.allTasks}>
+                    <div className={styles.taskUpper}>
+                      {todos.completed ? (
+                        <div
+                          className={styles.finishedTask}
+                          onClick={() => updateTodos(todos, uid)}
+                        >
+                          <IoMdCheckmark className={styles.checkedColor} />
+                        </div>
+                      ) : (
+                        <div
+                          className={styles.pendingTask}
+                          onClick={() => updateTodos(todos, uid)}
+                        >
+                          <IoMdCheckmark className={styles.checkedColor} />
+                        </div>
+                      )}
+                      <div className={styles.containText}>
+                        <p
+                          className={`${
+                            todos.completed
+                              ? `${`${styles.todoText} ${styles.crossOff}`} cross`
+                              : styles.todoText
+                          }`}
+                        >
+                          {todos.Todo}
+                        </p>
                       </div>
-                    ) : (
-                      <div
-                        className={styles.pendingTask}
-                        onClick={() => updateTodos(todos, uid)}
-                      >
-                        <IoMdCheckmark className={styles.checkedColor} />
-                      </div>
-                    )}
-                    <div className={styles.containText}>
-                      <p
-                        className={`${
-                          todos.completed
-                            ? `${`${styles.todoText} ${styles.crossOff}`} cross`
-                            : styles.todoText
-                        }`}
-                      >
-                        {todos.Todo}
-                      </p>
                     </div>
+                    <HiXMark
+                      className={styles.todoDelete}
+                      onClick={() => deleteTodos(todos, uid)}
+                    />
                   </div>
-                  <HiXMark
-                    className={styles.todoDelete}
-                    onClick={() => deleteTodos(todos, uid)}
-                  />
-                </div>
-                <div className={styles.hr} />
-              </motion.div>
-            )
-          })}
-      <div className={styles.overView}>
-        {userTodo ? (
-          userTodo.length > 0 ? (
-            <p>{pendingTasks && pendingTasks.length} task(s) left</p>
-          ) : (
-            <p className={styles.taskCheck}>No task for now</p>
-          )
-        ) : (
-          <TailSpin
-            height="40"
-            width="40"
-            color="#999"
-            ariaLabel="tail-spin-loading"
-            radius="1"
-            wrapperStyle={{}}
-            wrapperClass={styles.loadingTasks}
-            visible
-          />
-        )}
-        <FilterTask />
+                  <div className={styles.hr} />
+                </Reorder.Item>
+              )
+            })}
+          <div className={styles.overView}>
+            {userTodo ? (
+              userTodo.length > 0 ? (
+                <p>{pendingTasks && pendingTasks.length} task(s) left</p>
+              ) : (
+                <p className={styles.taskCheck}>No task for now</p>
+              )
+            ) : (
+              <TailSpin
+                height="40"
+                width="40"
+                color="#999"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass={styles.loadingTasks}
+                visible
+              />
+            )}
+            <FilterTask />
 
-        {finishedTasks && finishedTasks.length > 0 && (
-          <p
-            type="button"
-            onClick={() => clearFinishedTask(userTodo, uid)}
-            className="hover-action"
-          >
-            {' '}
-            Clear Completed
-          </p>
-        )}
-      </div>
-    </>
+            {finishedTasks && finishedTasks.length > 0 && (
+              <p
+                type="button"
+                onClick={() => clearFinishedTask(userTodo, uid)}
+                className="hover-action"
+              >
+                {' '}
+                Clear Completed
+              </p>
+            )}
+          </div>
+        </Reorder.Group>
+      )}
+    </div>
   )
 }
 DisplayTodo.propTypes = {

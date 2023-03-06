@@ -95,7 +95,7 @@ function DisplayTodo({ uid }) {
                 </Reorder.Item>
               )
             })}
-          <div className={styles.overView}>
+          <div className={`${styles.overView} lay`}>
             {userTodo &&
               (userTodo.length > 0 ? (
                 <p>{pendingTasks && pendingTasks.length} task(s) left</p>

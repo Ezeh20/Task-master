@@ -129,6 +129,16 @@ body {
       cursor: pointer;
     }
   }
+
+  .box-shadow {
+    box-shadow: -1px 19px 28px 4px rgba(18, 16, 16, 0.08);
+    -webkit-box-shadow: -1px 19px 28px 4px rgba(18, 16, 16, 0.08);
+    -moz-box-shadow: -1px 19px 28px 4px rgba(18, 16, 16, 0.08);
+  }
+
+  .lay {
+    color: $DarkGrayishBlue;
+  }
 }
 
 
@@ -141,6 +151,10 @@ body {
 
   .alt-text {
     color: $LightGrayishBlue-hover;
+  }
+
+  .lay {
+    color: $DarkGrayishBlue;
   }
 
   .text-hover {
@@ -176,5 +190,11 @@ body {
       color: $VeryLightGray;
       cursor: pointer;
     }
+  }
+
+  .box-shadow {
+    box-shadow: -1px 26px 28px -6px rgba(18, 16, 16, 0.66);
+    -webkit-box-shadow: -1px 26px 28px -6px rgba(18, 16, 16, 0.66);
+    -moz-box-shadow: -1px 26px 28px -6px rgba(18, 16, 16, 0.66);
   }
 }

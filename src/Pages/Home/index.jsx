@@ -99,7 +99,7 @@ function Home() {
             </div>
           </div>
           {logged ? (
-            <div className={`${styles.userTasks} content-bg `}>
+            <div className={`${styles.userTasks} content-bg box-shadow `}>
               <DisplayTodo uid={id} />
             </div>
           ) : (
@@ -110,6 +110,9 @@ function Home() {
               <BsFillDoorOpenFill className={styles.prompt} />{' '}
               <p className="text">login required</p>
             </Link>
+          )}
+          {fetched && fetched.length > 0 && (
+            <p className={styles.dragText}>Drag and drop to reorder list</p>
           )}
         </Container>
       </Layout>

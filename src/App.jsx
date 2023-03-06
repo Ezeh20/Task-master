@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
 import Home from './Pages/Home'
 import Profile from './Pages/Profile'
 import Login from './userAuth/Login'

@@ -1,6 +1,16 @@
 .profile {
     display: flex;
 
+    .header {
+        height: 15rem;
+        background: #999;
+    }
+
+    .userDetails {
+        display: flex;
+        justify-content: space-between;
+    }
+
     .loading {
         width: 100%;
         min-height: 100vh;

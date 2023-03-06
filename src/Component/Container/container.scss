@@ -9,3 +9,12 @@
         margin-inline: auto;
     }
 }
+
+.profile {
+    margin-inline: 1.5rem;
+    max-width: fn.rem(768);
+
+    @include view(769px) {
+        margin-inline: auto;
+    }
+}

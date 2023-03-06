@@ -8,6 +8,7 @@ const buttonOptions = {
   default: 'default',
   google: 'google',
   task: 'task',
+  back: 'back',
 }
 
 function Button({ children, onClick, buttonType, action }) {

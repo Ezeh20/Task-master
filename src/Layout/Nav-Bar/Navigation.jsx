@@ -28,7 +28,7 @@ function Navigation() {
   return (
     <div className={styles.navigation}>
       <header className={`${styles.header} header`}>
-        <Container>
+        <Container type="default">
           <nav className={styles.nav}>
             <Link to="/" className={styles.logo}>
               TODO

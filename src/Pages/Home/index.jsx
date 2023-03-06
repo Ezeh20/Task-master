@@ -73,7 +73,7 @@ function Home() {
     <div className={`${styles.home} text bg`}>
       <Layout>
         <Navigation />
-        <Container>
+        <Container type="default">
           <div className={`${styles.homeContent} bg `}>
             <div className={`${styles.taskLocation} content-bg `}>
               <div className={styles.iconNinput}>

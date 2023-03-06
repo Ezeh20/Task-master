@@ -17,11 +17,12 @@ function Navigation() {
   const currentTheme = useSelector((state) => state.theme.value)
   const dispatch = useDispatch()
   const toggleActive = () => setActive((curr) => !curr)
-  const { setLogged, logged } = useContext(UpdateUserContext)
+  const { setLogged, logged, setUserTodo } = useContext(UpdateUserContext)
 
   const logOut = async () => {
     await LogOut()
     setLogged(null)
+    setUserTodo(null)
   }
 
   return (

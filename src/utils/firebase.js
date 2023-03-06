@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable consistent-return */
+/* eslint-disable import/prefer-default- */
 import { initializeApp } from 'firebase/app'
 import {
   GoogleAuthProvider,

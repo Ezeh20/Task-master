@@ -134,16 +134,12 @@
             justify-content: space-between;
             position: relative;
 
-            .loadingTasks {
-                width: 100%;
-                justify-content: center;
-            }
-
             .taskCheck {
                 text-align: center;
                 width: 100%;
                 font-size: 16px;
-                @include view(481px){
+
+                @include view(481px) {
                     text-align: initial;
                 }
             }
@@ -179,6 +175,11 @@
             @include view(768px) {
                 font-size: fn.rem(16);
             }
+        }
+        .loadingTasks {
+            width: 100%;
+            justify-content: center;
+            padding: 1rem;
         }
     }
 

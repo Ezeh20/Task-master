@@ -14,33 +14,25 @@ function App() {
   const currentTheme = useSelector((state) => state.theme.value)
 
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-      className={`${currentTheme}`}
-    >
-      <AnimatePresence>
-        {logged ? (
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="sign-up" element={<SignUp />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="*" element={<PageNot />} />
-          </Routes>
-        ) : (
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="sign-up" element={<SignUp />} />
-            <Route path="profile" element={<Login />} />
-            <Route path="*" element={<PageNot />} />
-          </Routes>
-        )}
-      </AnimatePresence>
-    </motion.div>
+    <div className={`${currentTheme}`}>
+      {logged ? (
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="sign-up" element={<SignUp />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="*" element={<PageNot />} />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="sign-up" element={<SignUp />} />
+          <Route path="profile" element={<Login />} />
+          <Route path="*" element={<PageNot />} />
+        </Routes>
+      )}
+    </div>
   )
 }
 

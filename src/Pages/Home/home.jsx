@@ -43,7 +43,7 @@ function DisplayTodo({ uid }) {
 
   return (
     <div>
-      {userTodo && (
+      {userTodo ? (
         <Reorder.Group axis="y" onReorder={setUserTodo} values={userTodo}>
           {userTodo &&
             userTodo.map((todos) => {
@@ -96,24 +96,12 @@ function DisplayTodo({ uid }) {
               )
             })}
           <div className={styles.overView}>
-            {userTodo ? (
-              userTodo.length > 0 ? (
+            {userTodo &&
+              (userTodo.length > 0 ? (
                 <p>{pendingTasks && pendingTasks.length} task(s) left</p>
               ) : (
                 <p className={styles.taskCheck}>No task for now</p>
-              )
-            ) : (
-              <TailSpin
-                height="40"
-                width="40"
-                color="#999"
-                ariaLabel="tail-spin-loading"
-                radius="1"
-                wrapperStyle={{}}
-                wrapperClass={styles.loadingTasks}
-                visible
-              />
-            )}
+              ))}
             <FilterTask />
 
             {finishedTasks && finishedTasks.length > 0 && (
@@ -128,6 +116,17 @@ function DisplayTodo({ uid }) {
             )}
           </div>
         </Reorder.Group>
+      ) : (
+        <TailSpin
+          height="40"
+          width="40"
+          color="#999"
+          ariaLabel="tail-spin-loading"
+          radius="1"
+          wrapperStyle={{}}
+          wrapperClass={styles.loadingTasks}
+          visible
+        />
       )}
     </div>
   )

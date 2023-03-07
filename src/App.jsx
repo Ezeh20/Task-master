@@ -2,11 +2,11 @@ import React, { useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
 import Home from './Pages/Home'
-import Profile from './Pages/Profile'
 import Login from './userAuth/Login'
 import SignUp from './userAuth/Sign-up'
 import PageNot from './Pages/404'
 import { UpdateUserContext } from './Redux/authListener'
+import UserRoute from './Routes/User-Route'
 
 function App() {
   const { logged } = useContext(UpdateUserContext)
@@ -19,7 +19,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="sign-up" element={<SignUp />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="user/*" element={<UserRoute />} />
           <Route path="*" element={<PageNot />} />
         </Routes>
       ) : (
@@ -27,7 +27,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="sign-up" element={<SignUp />} />
-          <Route path="profile" element={<Login />} />
+          <Route path="user" element={<Login />} />
           <Route path="*" element={<PageNot />} />
         </Routes>
       )}

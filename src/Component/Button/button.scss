@@ -46,13 +46,42 @@
             width: max-content;
             padding-inline: 1rem;
             padding-block: .5rem;
-            box-shadow: 1px 3px 2px $DarkGrayishBlue;
+            box-shadow: 1px 2px 3px rgba(0, 0, 0, .1);
             border: none;
             font-weight: 200;
             color: $VeryDarkGrayishBlue;
             display: flex;
             column-gap: .5rem;
             align-items: center;
+            background: #fff;
+        }
+
+        &.Profile {
+            border:none;
+            display: flex;
+            padding-block: 2rem;
+            justify-content: space-between;
+            background-color: hsl(0, 0%, 98%);
+            border-radius: 0;
+            align-items: center;
+
+            &:hover {
+                background-color: $VeryLightGrayishBlue;
+                color: $VeryDarkGrayishBlue;
+            }
+
+        }
+        &.Delete{
+            border:none;
+            display: flex;
+            padding-block: 2rem;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 0;
+            font-weight: 100;
+            font-size: 18px;
+            background: red;
+            color: $VeryLightGray;
         }
     }
 }
@@ -94,11 +123,44 @@
             width: max-content;
             padding-inline: 1rem;
             padding-block: .5rem;
-            background-color:  $VeryDarkBlue;
-            box-shadow: 1px 3px 2px #000;
+            background-color: $VeryDarkBlue;
+            box-shadow: 1px 2px 3px rgba(0, 0, 0, .8);
             border: none;
             font-weight: 200;
             color: $VeryLightGrayishBlue;
+            display: flex;
+            column-gap: .5rem;
+            align-items: center;
+        }
+
+        &.Profile {
+            border:none;
+            display: flex;
+            padding-block: 2rem;
+            justify-content: space-between;
+            background-color: $VeryDarkDesaturatedBlue;
+            border-radius: 0;
+            font-weight: 100;
+            align-items: center;
+            font-size: 18px;
+
+            &:hover {
+                background-color: $VeryDarkBlue;
+                color: $VeryLightGray;
+            }
+
+        }
+
+        &.Delete{
+            border:none;
+            display: flex;
+            padding-block: 2rem;
+            justify-content: space-between;
+            border-radius: 0;
+            align-items: center;
+            font-weight: 100;
+            font-size: 18px;
+            background: red;
         }
     }
 }

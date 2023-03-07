@@ -11,10 +11,10 @@ function Profile() {
   const { main } = useContext(UpdateUserContext)
 
   return (
-    <div className={`${styles.profile} bg`}>
+    <div className={`${styles.profile} bg-profile`}>
       {main ? (
         <Layout>
-          <div className={styles.header}>
+          <div className={`${styles.header} text bg`}>
             <Container type="profile">
               <UserDetails />
             </Container>

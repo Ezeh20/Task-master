@@ -99,7 +99,7 @@ body {
   }
 
   .alt-text {
-    color: $DarkGrayishBlue;
+    color:$VeryDarkGrayishBlue;
   }
 
 
@@ -112,12 +112,15 @@ body {
     background-color: $VeryLightGray
   }
 
+  .bg-profile{
+    background-color: rgba(255, 255, 255, .5);
+  }
   .header {
     background: url(../../../public/images/bg-mobile-light.jpg);
     background-repeat: no-repeat;
     background-size: cover;
   }
-
+ 
   .cross {
     color: $DarkGrayishBlue;
     opacity: .5;
@@ -150,7 +153,8 @@ body {
   }
 
   .alt-text {
-    color: $LightGrayishBlue-hover;
+    color: $VeryLightGray;
+    font-weight: 300;
   }
 
   .lay {
@@ -168,12 +172,16 @@ body {
   .content-bg {
     background-color: $VeryDarkDesaturatedBlue;
   }
+  .bg-profile{
+    background-color: hsl(235, 21%, 14%);
+  }
 
   .header {
     background-repeat: no-repeat;
     background-size: cover;
     background: url(../../../public/images/bg-desktop-dark.jpg);
   }
+  
 
   ::placeholder {
     color: $LightGrayishBlue;

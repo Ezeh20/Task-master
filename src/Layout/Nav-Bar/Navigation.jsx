@@ -11,6 +11,7 @@ import styles from './Navigation.module.scss'
 import Container from '../../Component/Container/container'
 import { LogOut } from '../../utils/firebase'
 import { UpdateUserContext } from '../../Redux/authListener'
+import { getTodos } from '../../Redux/todoReducer'
 
 function Navigation() {
   const [active, setActive] = useState(false)
@@ -23,6 +24,7 @@ function Navigation() {
     await LogOut()
     setLogged(null)
     setUserTodo(null)
+    dispatch(getTodos(null))
   }
 
   return (
@@ -70,7 +72,7 @@ function Navigation() {
                     <GiExitDoor /> <p>logout</p>
                   </button>
                   <button type="button">
-                    <Link to="/profile" className={styles.login}>
+                    <Link to="user" className={styles.login}>
                       <ImProfile /> Profile
                     </Link>
                   </button>

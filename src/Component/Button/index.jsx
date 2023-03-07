@@ -9,6 +9,8 @@ const buttonOptions = {
   google: 'google',
   task: 'task',
   back: 'back',
+  Profile: 'Profile',
+  Delete: 'Delete',
 }
 
 function Button({ children, onClick, buttonType, action }) {

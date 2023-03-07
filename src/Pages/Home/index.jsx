@@ -111,9 +111,11 @@ function Home() {
               <p className="text">login required</p>
             </Link>
           )}
-          {fetched && fetched.length > 0 && (
-            <p className={styles.dragText}>Drag and drop to reorder list</p>
-          )}
+          {fetched && logged
+            ? fetched.length > 0 && (
+                <p className={styles.dragText}>Drag and drop to reorder list</p>
+              )
+            : ''}
         </Container>
       </Layout>
       <ToastContainer />

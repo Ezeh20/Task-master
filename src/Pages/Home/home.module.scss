@@ -213,10 +213,13 @@
     }
 
     .dragText {
-        margin-top: 3rem;
+        margin-top: 6.5rem;
         text-align: center;
         font-size: fn.rem(16);
         word-spacing: fn.rem(3);
         color: $DarkGrayishBlue;
+        @include view(481px){
+            margin-top: 3rem;
+        }
     }
 }

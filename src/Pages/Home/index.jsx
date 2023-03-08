@@ -15,9 +15,8 @@ import { db } from '../../utils/firebase'
 import DisplayTodo from './home'
 
 function Home() {
-  const { logged, id } = useContext(UpdateUserContext)
+  const { logged, id  } = useContext(UpdateUserContext)
   const fetched = useSelector((state) => state.todo.value)
-
   const defaultTask = {
     todo: '',
   }

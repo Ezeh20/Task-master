@@ -1,19 +1,28 @@
 import { deleteDoc, doc } from 'firebase/firestore'
 import React, { useContext, useState } from 'react'
 import { InfinitySpin } from 'react-loader-spinner'
+import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import Container from '../../Component/Container/container'
 import Layout from '../../Layout/Layout'
 import { UpdateUserContext } from '../../Redux/authListener'
-import { auth, db, LogOut } from '../../utils/firebase'
+import { auth, db } from '../../utils/firebase'
 import styles from './profile.module.scss'
 import ProfileBody from './profileBody/Profile-Body'
 import UserDetails from './userDetails/User-Details'
 
 function Profile() {
-  const { main, deleteModal, setDeleteModal, setLogged, setUserTodo } =
-    useContext(UpdateUserContext)
+  const {
+    main,
+    deleteModal,
+    setDeleteModal,
+    setLogged,
+    setUserTodo,
+    userTodo,
+  } = useContext(UpdateUserContext)
   const [emailInput, setEmailInput] = useState('')
+  const navigate = useNavigate()
+ 
 
   const DeleteAccount = async (emailinput, email) => {
     if (emailinput !== email) {
@@ -23,13 +32,14 @@ function Profile() {
     const user = auth.currentUser
     if (user) {
       try {
-        toast.success('accout deleted')
         await user.delete()
         await deleteDoc(doc(db, `users/${user.uid}`))
+        toast.success('accout deleted')
       } catch (error) {
         toast.error(error)
       }
     }
+    navigate('/')
     setLogged(null)
     setUserTodo(null)
     setDeleteModal((curr) => !curr)

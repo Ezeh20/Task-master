@@ -102,10 +102,18 @@ export function UpdateUser({ children }) {
       qSnap.forEach((docf) => {
         list.push({ ...docf.data() })
       })
-      dispatch(getTodos(list))
+      if (logged) {
+        dispatch(getTodos(list))
+      } else {
+        dispatch(getTodos(null))
+      }
     })
     return () => unSub()
-  }, [id, dispatch])
+  }, [id, dispatch, logged])
+
+  useEffect(() => {
+    setUserTodo(fetchedTodos)
+  }, [fetchedTodos])
 
   /**
    * The state holds the fetched user todos which will be
@@ -115,10 +123,6 @@ export function UpdateUser({ children }) {
    * be affected when you perform a filter method on it. To tackle this i created another state that stores
    * the data and can be manipulated without affecting the original data
    */
-  useEffect(() => {
-    setUserTodo(fetchedTodos)
-  }, [fetchedTodos])
-
   return (
     <UpdateUserContext.Provider value={value}>
       {children}

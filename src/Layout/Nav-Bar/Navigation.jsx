@@ -23,8 +23,7 @@ function Navigation() {
   const logOut = async () => {
     await LogOut()
     setLogged(null)
-    setUserTodo(null)
-    dispatch(getTodos(null))
+   
   }
 
   return (

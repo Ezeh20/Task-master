@@ -15,6 +15,8 @@ export const UpdateUserContext = createContext({
   id: null,
   userTodo: null,
   setUserTodo: () => {},
+  deleteModal: false,
+  setDeleteModal: () => {},
 })
 
 export function UpdateUser({ children }) {
@@ -31,9 +33,20 @@ export function UpdateUser({ children }) {
   const [data, setData] = useState(null)
   const [userTodo, setUserTodo] = useState(null)
   const [main, setMain] = useState([])
+  const [deleteModal, setDeleteModal] = useState(false)
   const uid = currentUser && currentUser.uid
   const dispatch = useDispatch()
-  const value = { data, logged, setLogged, main, id, userTodo, setUserTodo }
+  const value = {
+    data,
+    logged,
+    setLogged,
+    main,
+    id,
+    userTodo,
+    setUserTodo,
+    deleteModal,
+    setDeleteModal,
+  }
 
   /**
    * get the current user by matching ids the store that user in a state

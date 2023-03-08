@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { RiArrowGoBackFill } from 'react-icons/ri'
 import styles from './User-Details.module.scss'
@@ -6,7 +6,7 @@ import Button from '../../../Component/Button'
 import { UpdateUserContext } from '../../../Redux/authListener'
 
 function UserDetails() {
-  const { main, id } = useContext(UpdateUserContext)
+  const { id } = useContext(UpdateUserContext)
 
   const navigate = useNavigate()
   const goBack = () => {

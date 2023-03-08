@@ -1,7 +1,10 @@
 @use '../../../scss/utils/mixins'as *;
 
 .userDetails {
-    margin-top: 5rem;
+    margin-block: 5rem;
+    @include view(768px){
+        margin-block: 7rem;
+    }
 
     .allData {
         border-radius: 5px;
@@ -55,6 +58,11 @@
                 }
                 .actionBtn{
                     font-size: 1.3rem;
+                    transform: rotateY(180deg);
+                }
+                .actionBtnAlt{
+                    font-size: 1.3rem;
+                    transform: rotateY(0);
                 }
             }
         }

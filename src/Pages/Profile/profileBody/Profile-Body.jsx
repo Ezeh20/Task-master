@@ -10,13 +10,18 @@ import { UpdateUserContext } from '../../../Redux/authListener'
 import styles from './ProfileBody.module.scss'
 import Button from '../../../Component/Button'
 import { darkMode, lightMode } from '../../../Redux/themeReducer'
+import { LogOut } from '../../../utils/firebase'
 
 function ProfileBody() {
-  const { main } = useContext(UpdateUserContext)
+  const { main, setDeleteModal, setLogged, setUserTodo } =
+    useContext(UpdateUserContext)
   const theme = useSelector((state) => state.theme.value)
   const dispatch = useDispatch()
-
-  console.log(lightMode)
+  const ab = async () => {
+    await LogOut()
+    setLogged(null)
+    setUserTodo(null)
+  }
 
   return (
     <div className={`${styles.userDetails} alt-text`}>
@@ -71,12 +76,16 @@ function ProfileBody() {
               </Button>
             )}
             <Button buttonType="Profile">
-              Edit profile <BsPen className={styles.actionBtn} />
+              Edit profile{' '}
+              <BsPen className={`${styles.actionBtn} ${styles.actionBtnAlt}`} />
             </Button>
-            <Button buttonType="Profile">
+            <Button buttonType="Profile" onClick={() => ab()}>
               Log Out <GiExitDoor className={styles.actionBtn} />
             </Button>
-            <Button buttonType="Delete">
+            <Button
+              buttonType="Delete"
+              onClick={() => setDeleteModal((curr) => !curr)}
+            >
               Delete account <AiTwotoneDelete className={styles.actionBtn} />
             </Button>
           </div>
@@ -87,9 +96,3 @@ function ProfileBody() {
 }
 
 export default ProfileBody
-
-/**
- *  <Button buttonType="back" className={styles.pen}>
-                <BsPen />
-              </Button>
- */

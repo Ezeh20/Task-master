@@ -17,6 +17,7 @@ import {
   getDoc,
   deleteDoc,
   updateDoc,
+  collection,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -114,4 +115,5 @@ export {
   clearFinishedTask,
   storeUser,
   db,
+  auth,
 }

@@ -13,7 +13,7 @@ import { darkMode, lightMode } from '../../../Redux/themeReducer'
 import { LogOut } from '../../../utils/firebase'
 
 function ProfileBody() {
-  const { main, setDeleteModal, setLogged, setUserTodo } =
+  const { main, setDeleteModal, setLogged, setUserTodo, setEditModal } =
     useContext(UpdateUserContext)
   const theme = useSelector((state) => state.theme.value)
   const dispatch = useDispatch()
@@ -75,7 +75,10 @@ function ProfileBody() {
                 <p>Dark mode</p> <FaMoon className={styles.actionBtn} />
               </Button>
             )}
-            <Button buttonType="Profile">
+            <Button
+              buttonType="Profile"
+              onClick={() => setEditModal((curr) => !curr)}
+            >
               Edit profile{' '}
               <BsPen className={`${styles.actionBtn} ${styles.actionBtnAlt}`} />
             </Button>

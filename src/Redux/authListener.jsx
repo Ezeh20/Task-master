@@ -17,6 +17,8 @@ export const UpdateUserContext = createContext({
   setUserTodo: () => {},
   deleteModal: false,
   setDeleteModal: () => {},
+  editModal: false,
+  setEditModal: () => {},
 })
 
 export function UpdateUser({ children }) {
@@ -34,6 +36,7 @@ export function UpdateUser({ children }) {
   const [userTodo, setUserTodo] = useState(null)
   const [main, setMain] = useState([])
   const [deleteModal, setDeleteModal] = useState(false)
+  const [editModal, setEditModal] = useState(false)
   const uid = currentUser && currentUser.uid
   const dispatch = useDispatch()
   const value = {
@@ -46,6 +49,8 @@ export function UpdateUser({ children }) {
     setUserTodo,
     deleteModal,
     setDeleteModal,
+    editModal,
+    setEditModal,
   }
 
   /**

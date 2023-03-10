@@ -1,5 +1,6 @@
-import { deleteDoc, doc } from 'firebase/firestore'
-import React, { useContext, useState } from 'react'
+/* eslint-disable no-unused-expressions */
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
+import React, { useContext, useEffect, useState } from 'react'
 import { InfinitySpin } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
@@ -18,11 +19,40 @@ function Profile() {
     setDeleteModal,
     setLogged,
     setUserTodo,
-    userTodo,
+    editModal,
+    setEditModal,
   } = useContext(UpdateUserContext)
-  const [emailInput, setEmailInput] = useState('')
+
   const navigate = useNavigate()
- 
+  const [edit, setEdit] = useState('')
+  const [emailInput, setEmailInput] = useState('')
+
+  useEffect(() => {
+    main && main.map((mapped) => setEdit(mapped))
+  }, [main])
+
+  const { firstName, lastName } = edit
+
+  const onChangeAction = (e) => {
+    const { name, value } = e.target
+    setEdit({ ...edit, [name]: value })
+  }
+  const editUser = async (id) => {
+    if (firstName.length < 1 || lastName.length < 1) {
+      toast.error('can`t be blank')
+      return
+    }
+    try {
+      await updateDoc(doc(db, `users/${id}`), {
+        firstName,
+        lastName,
+      })
+      setEditModal((curr) => !curr)
+    } catch (err) {
+      toast.error(err)
+    }
+    toast.success('updated successfully')
+  }
 
   const DeleteAccount = async (emailinput, email) => {
     if (emailinput !== email) {
@@ -64,7 +94,7 @@ function Profile() {
               <Container type="profile">
                 {main &&
                   main.map((deleteAccount) => {
-                    const { email, uid } = deleteAccount
+                    const { email } = deleteAccount
                     return (
                       <div key={email} className={styles.warning}>
                         <div className={styles.warningContent}>
@@ -100,6 +130,52 @@ function Profile() {
                               Cancel
                             </button>
                           </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+              </Container>
+            </div>
+          )}
+          {editModal && (
+            <div className={styles.inputModal}>
+              <Container type="profile">
+                {main &&
+                  main.map((editAccount) => {
+                    const { email, uid } = editAccount
+                    return (
+                      <div key={email} className={styles.userEdit}>
+                        <input
+                          type="text"
+                          name="firstName"
+                          value={firstName}
+                          onChange={onChangeAction}
+                          className={styles.editOption}
+                          placeholder="FirstName"
+                        />
+                        <input
+                          type="text"
+                          value={lastName}
+                          name="lastName"
+                          onChange={onChangeAction}
+                          className={styles.editOption}
+                          placeholder="LastName"
+                        />
+                        <div className={styles.editButton}>
+                          <button
+                            type="button"
+                            className={`${styles.editBtn} ${styles.editBtn2}`}
+                            onClick={() => editUser(uid)}
+                          >
+                            Confirm
+                          </button>
+                          <button
+                            type="button"
+                            className={styles.editBtn}
+                            onClick={() => setEditModal((curr) => !curr)}
+                          >
+                            Cancel
+                          </button>
                         </div>
                       </div>
                     )

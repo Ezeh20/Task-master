@@ -70,7 +70,7 @@ function Login() {
     <div className={`${styles.login} bg alt-text`}>
       <Layout>
         <Navigation />
-        <Container>
+        <Container type="default">
           <div className={styles.loginTitle}>
             <p className={styles.loginSub}>Login</p>
           </div>

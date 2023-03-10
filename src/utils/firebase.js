@@ -17,7 +17,6 @@ import {
   getDoc,
   deleteDoc,
   updateDoc,
-  collection,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -83,6 +82,7 @@ const updateTodos = async (toUpdate, uid) => {
     completed: !toUpdate.completed,
   })
 }
+
 // function to delete todos
 const deleteTodos = async (toDelete, uid) => {
   // delete a doc using it's id

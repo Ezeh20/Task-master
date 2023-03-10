@@ -11,19 +11,17 @@ import styles from './Navigation.module.scss'
 import Container from '../../Component/Container/container'
 import { LogOut } from '../../utils/firebase'
 import { UpdateUserContext } from '../../Redux/authListener'
-import { getTodos } from '../../Redux/todoReducer'
 
 function Navigation() {
   const [active, setActive] = useState(false)
   const currentTheme = useSelector((state) => state.theme.value)
   const dispatch = useDispatch()
   const toggleActive = () => setActive((curr) => !curr)
-  const { setLogged, logged, setUserTodo } = useContext(UpdateUserContext)
+  const { setLogged, logged } = useContext(UpdateUserContext)
 
   const logOut = async () => {
     await LogOut()
     setLogged(null)
-   
   }
 
   return (

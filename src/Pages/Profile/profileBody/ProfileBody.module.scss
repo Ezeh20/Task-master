@@ -2,7 +2,8 @@
 
 .userDetails {
     margin-block: 5rem;
-    @include view(768px){
+
+    @include view(768px) {
         margin-block: 7rem;
     }
 
@@ -24,14 +25,22 @@
             .userName {
                 display: flex;
                 flex-direction: column;
-                row-gap: 2rem;
+                row-gap: 1rem;
                 text-align: start;
+
+                @include view(600px) {
+                    row-gap: 2rem;
+                }
             }
 
             .emailId {
                 display: flex;
                 flex-direction: column;
-                row-gap: 2rem;
+                row-gap: 1rem;
+
+                @include view(600px) {
+                    row-gap: 2rem;
+                }
             }
         }
     }
@@ -44,7 +53,7 @@
         border-radius: 5px;
 
         .actionArena {
-            
+
             display: flex;
             flex-direction: column;
 
@@ -56,11 +65,13 @@
                     align-items: center;
                     justify-content: space-between;
                 }
-                .actionBtn{
+
+                .actionBtn {
                     font-size: 1.3rem;
                     transform: rotateY(180deg);
                 }
-                .actionBtnAlt{
+
+                .actionBtnAlt {
                     font-size: 1.3rem;
                     transform: rotateY(0);
                 }

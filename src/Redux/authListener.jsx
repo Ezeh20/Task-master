@@ -19,6 +19,8 @@ export const UpdateUserContext = createContext({
   setDeleteModal: () => {},
   editModal: false,
   setEditModal: () => {},
+  completedTodos: null,
+  setCompletedTodos: () => {},
 })
 
 export function UpdateUser({ children }) {
@@ -34,6 +36,7 @@ export function UpdateUser({ children }) {
   const [id, setId] = useState(dd)
   const [data, setData] = useState(null)
   const [userTodo, setUserTodo] = useState(null)
+  const [completedTodos, setCompletedTodos] = useState(null)
   const [main, setMain] = useState([])
   const [deleteModal, setDeleteModal] = useState(false)
   const [editModal, setEditModal] = useState(false)
@@ -51,6 +54,8 @@ export function UpdateUser({ children }) {
     setDeleteModal,
     editModal,
     setEditModal,
+    completedTodos,
+    setCompletedTodos,
   }
 
   /**
@@ -91,8 +96,8 @@ export function UpdateUser({ children }) {
   useEffect(() => {
     const sub = onSnapshot(collection(db, 'users'), (snaps) => {
       const list = []
-      snaps.docs.forEach((doc) => {
-        list.push({ id: doc.id, ...doc.data() })
+      snaps.docs.forEach((doC) => {
+        list.push({ id: doC.id, ...doC.data() })
       })
       setData(list)
     })
@@ -115,6 +120,20 @@ export function UpdateUser({ children }) {
     })
     return () => unSub()
   }, [id, dispatch, logged])
+
+  // get live completed todos update
+  useEffect(() => {
+    const q = query(collection(db, `users/${id}/completedTodos`))
+
+    const subscribe = onSnapshot(q, (liveUpdate) => {
+      const list = []
+      liveUpdate.forEach((completed) => {
+        list.push({ ...completed.data() })
+      })
+      setCompletedTodos(list)
+    })
+    return () => subscribe()
+  }, [id])
 
   useEffect(() => {
     setUserTodo(fetchedTodos)

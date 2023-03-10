@@ -17,6 +17,8 @@ import {
   getDoc,
   deleteDoc,
   updateDoc,
+  collection,
+  serverTimestamp
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -75,11 +77,19 @@ const clearFinishedTask = (userTodo, uid) => {
         )
       })
 }
-// function to update user's todo
+// function to update user's todo to true then add to the completed list
 const updateTodos = async (toUpdate, uid) => {
   // get the needed todo document path to update
   await updateDoc(doc(db, `users/${uid}/todos/${toUpdate.updateId}`), {
-    completed: !toUpdate.completed,
+    completed: true,
+  })
+
+  const userTodos = doc(collection(db, `users/${uid}/completedTodos`))
+
+  await setDoc(userTodos, {
+    ...toUpdate,
+    completedTime: serverTimestamp(),
+    completedId: userTodos.id,
   })
 }
 

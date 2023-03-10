@@ -60,10 +60,7 @@ function DisplayTodo({ uid }) {
                   <div className={styles.allTasks}>
                     <div className={styles.taskUpper}>
                       {todos.completed ? (
-                        <div
-                          className={styles.finishedTask}
-                          onClick={() => updateTodos(todos, uid)}
-                        >
+                        <div className={styles.finishedTask}>
                           <IoMdCheckmark className={styles.checkedColor} />
                         </div>
                       ) : (

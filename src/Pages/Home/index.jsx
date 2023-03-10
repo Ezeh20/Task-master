@@ -38,9 +38,11 @@ function Home() {
     const exist = fetched.find(
       (mapped) => mapped.Todo.toLowerCase() === todo.toLowerCase()
     )
+    const char = id.slice(0, 4)
     const taskId = Math.floor(Math.random() * 1000000)
-    const assignId = `task${taskId}`
+    const assignId = `${char.toLowerCase()}${taskId}`
     const sortId = Date.now()
+    const Time = new Date()
 
     if (todo.replaceAll(' ', '').length < 1) {
       toast.error("Can't be empty")
@@ -63,7 +65,7 @@ function Home() {
       updateId: userTodos.id,
       Todo: todo,
       completed: false,
-      time: serverTimestamp(),
+      time: Time,
       sortId,
     })
   }

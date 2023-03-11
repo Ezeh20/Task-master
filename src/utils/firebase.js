@@ -18,7 +18,7 @@ import {
   deleteDoc,
   updateDoc,
   collection,
-  serverTimestamp
+  serverTimestamp,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -99,6 +99,10 @@ const deleteTodos = async (toDelete, uid) => {
   await deleteDoc(doc(db, `users/${uid}/todos/${toDelete.updateId}`))
 }
 
+const deleteCompletedTodo = async (uid, id) => {
+  await deleteDoc(doc(db, `users/${uid}/completedTodos/${id}`))
+}
+
 const onAuthChangeListener = (callback) => onAuthStateChanged(auth, callback)
 
 const signInRedirect = () => signInWithPopup(auth, provider)
@@ -126,4 +130,5 @@ export {
   storeUser,
   db,
   auth,
+  deleteCompletedTodo,
 }

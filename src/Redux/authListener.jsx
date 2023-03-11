@@ -12,7 +12,7 @@ export const UpdateUserContext = createContext({
   logged: [],
   setLogged: () => {},
   main: [],
-  id: null,
+  userId: null,
   userTodo: null,
   setUserTodo: () => {},
   deleteModal: false,
@@ -33,7 +33,7 @@ export function UpdateUser({ children }) {
   const currentUser = useSelector((state) => state.user.value)
   const fetchedTodos = useSelector((state) => state.todo.value)
   const [logged, setLogged] = useState(cc)
-  const [id, setId] = useState(dd)
+  const [userId, setId] = useState(dd)
   const [data, setData] = useState(null)
   const [userTodo, setUserTodo] = useState(null)
   const [completedTodos, setCompletedTodos] = useState(null)
@@ -47,7 +47,7 @@ export function UpdateUser({ children }) {
     logged,
     setLogged,
     main,
-    id,
+    userId,
     userTodo,
     setUserTodo,
     deleteModal,
@@ -59,11 +59,11 @@ export function UpdateUser({ children }) {
   }
 
   /**
-   * get the current user by matching ids the store that user in a state
+   * get the current user by matching userIds the store that user in a state
    *  to be used anywhere in the app
    */
   useEffect(() => {
-    const user = data && data.filter((currentData) => currentData.id === uid)
+    const user = data && data.filter((currentData) => currentData.uid === uid)
     setMain(user)
   }, [data, setMain, uid])
 
@@ -87,17 +87,17 @@ export function UpdateUser({ children }) {
     localStorage.setItem('todoCii', JSON.stringify(logged))
   }, [logged])
 
-  // store the current user's id in localStorage
+  // store the current user's userId in localStorage
   useEffect(() => {
-    localStorage.setItem('unKnown', JSON.stringify(id))
-  }, [id])
+    localStorage.setItem('unKnown', JSON.stringify(userId))
+  }, [userId])
 
   // get all users which will be used to filter out the current user using ther user's uid
   useEffect(() => {
     const sub = onSnapshot(collection(db, 'users'), (snaps) => {
       const list = []
       snaps.docs.forEach((doC) => {
-        list.push({ id: doC.id, ...doC.data() })
+        list.push({ id: doC.userId, ...doC.data() })
       })
       setData(list)
     })
@@ -106,7 +106,7 @@ export function UpdateUser({ children }) {
 
   // fetching the user's task from firestore
   useEffect(() => {
-    const q = query(collection(db, `users/${id}/todos`))
+    const q = query(collection(db, `users/${userId}/todos`))
     const unSub = onSnapshot(q, (qSnap) => {
       const list = []
       qSnap.forEach((docf) => {
@@ -119,11 +119,11 @@ export function UpdateUser({ children }) {
       }
     })
     return () => unSub()
-  }, [id, dispatch, logged])
+  }, [userId, dispatch, logged])
 
   // get live completed todos update
   useEffect(() => {
-    const q = query(collection(db, `users/${id}/completedTodos`))
+    const q = query(collection(db, `users/${userId}/completedTodos`))
 
     const subscribe = onSnapshot(q, (liveUpdate) => {
       const list = []
@@ -133,7 +133,7 @@ export function UpdateUser({ children }) {
       setCompletedTodos(list)
     })
     return () => subscribe()
-  }, [id])
+  }, [userId])
 
   useEffect(() => {
     setUserTodo(fetchedTodos)

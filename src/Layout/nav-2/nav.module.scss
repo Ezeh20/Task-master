@@ -1,0 +1,24 @@
+.completed {
+    height: 10rem;
+    width: 100%;
+    position: sticky;
+
+    .completedNav {
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
+        padding-top: 1rem;
+
+        .navTop {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .content{
+            display: flex;
+            justify-content: center;
+            margin-top: .5rem;
+            font-size: 3.5rem;
+        }
+    }
+}

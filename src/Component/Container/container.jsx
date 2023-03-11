@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React from 'react'
 import PropTypes from 'prop-types'
 import './container.scss'
@@ -12,6 +13,6 @@ function Container({ children, type }) {
 
 export default Container
 Container.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   type: PropTypes.string.isRequired,
 }

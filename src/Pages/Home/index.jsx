@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { BsPen, BsFillDoorOpenFill } from 'react-icons/bs'
 import { AiFillLock } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
-import { collection, doc, setDoc, serverTimestamp } from 'firebase/firestore'
+import { collection, doc, setDoc } from 'firebase/firestore'
 import { ToastContainer, toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import Layout from '../../Layout/Layout'
@@ -15,7 +15,7 @@ import { db } from '../../utils/firebase'
 import DisplayTodo from './home'
 
 function Home() {
-  const { logged, id } = useContext(UpdateUserContext)
+  const { logged, userId } = useContext(UpdateUserContext)
   const fetched = useSelector((state) => state.todo.value)
   const defaultTask = {
     todo: '',
@@ -29,7 +29,7 @@ function Home() {
   /**
    * when the user submits a task, get  the input value,
    * use the setDoc method from firebase to write a document in firestore (user specific).
-   * consider error margins such as empty values, the same task in the todo collection
+   * consuserIder error margins such as empty values, the same task in the todo collection
    * maybe length of todo if you want; then use conditionals to return the function if these
    * errors are true else run the function
    */
@@ -38,7 +38,7 @@ function Home() {
     const exist = fetched.find(
       (mapped) => mapped.Todo.toLowerCase() === todo.toLowerCase()
     )
-    const char = id.slice(0, 4)
+    const char = userId.slice(0, 4)
     const taskId = Math.floor(Math.random() * 1000000)
     const assignId = `${char.toLowerCase()}${taskId}`
     const sortId = Date.now()
@@ -48,17 +48,21 @@ function Home() {
       toast.error("Can't be empty")
       return
     }
-    // if true, return the function (stop)
     if (exist) {
       toast.error('This task already exist')
       setCreateTask(defaultTask)
       return
     }
+    if (todo.replaceAll(' ', '').length > 50) {
+      toast.error('maximum length exceeded')
+      setCreateTask(defaultTask)
+      return
+    }
     setCreateTask(defaultTask)
     // get the refrence to the user's todos collection
-    const userTodos = doc(collection(db, `users/${id}/todos`))
+    const userTodos = doc(collection(db, `users/${userId}/todos`))
     // then set a todo document using the above refrence as the first agru (userTodos)
-    // for future update of this todo document, we would need a doc id which can be extracted
+    // for future update of this todo document, we would need a doc userId which can be extracted
     // from the doc refrence
     await setDoc(userTodos, {
       id: assignId,
@@ -87,6 +91,15 @@ function Home() {
                   value={todo}
                   onChange={handleOnchange}
                 />
+                <p
+                  className={
+                    todo.length > 50
+                      ? `${styles.todoLength} ${styles.todoLengthAlt}`
+                      : `${styles.todoLength}`
+                  }
+                >
+                  {todo.length}/50
+                </p>
               </div>
               {logged ? (
                 <Button buttonType="task" onClick={onCLickk}>
@@ -101,7 +114,7 @@ function Home() {
           </div>
           {logged ? (
             <div className={`${styles.userTasks} content-bg box-shadow `}>
-              <DisplayTodo uid={id} />
+              <DisplayTodo uid={userId} />
             </div>
           ) : (
             <Link

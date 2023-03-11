@@ -6,7 +6,7 @@ import Button from '../../../Component/Button'
 import { UpdateUserContext } from '../../../Redux/authListener'
 
 function UserDetails() {
-  const { id } = useContext(UpdateUserContext)
+  const { userId } = useContext(UpdateUserContext)
 
   const navigate = useNavigate()
   const goBack = () => {
@@ -26,7 +26,7 @@ function UserDetails() {
           <div className={styles.person}>
             <div className={`${styles.userImage} bg text`} />
             <img
-              src={`https://robohash.org/${id}`}
+              src={`https://robohash.org/${userId}`}
               alt="user img"
               className={styles.robo}
             />

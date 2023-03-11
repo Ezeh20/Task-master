@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
+import { collection, deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import React, { useContext, useEffect, useState } from 'react'
 import { InfinitySpin } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
@@ -11,7 +11,6 @@ import { auth, db } from '../../utils/firebase'
 import styles from './profile.module.scss'
 import ProfileBody from './profileBody/Profile-Body'
 import UserDetails from './userDetails/User-Details'
-
 function Profile() {
   const {
     main,

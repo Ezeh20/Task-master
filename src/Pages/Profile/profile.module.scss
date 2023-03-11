@@ -95,6 +95,7 @@
     .inputModal {
         @extend.deletePrompt;
         background-color:rgba(0, 0, 0, .4);
+        justify-content: center;
 
         .userEdit {
             background-color: #fff;

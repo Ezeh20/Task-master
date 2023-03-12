@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { GoChecklist } from 'react-icons/go'
 import { IoTrophySharp } from 'react-icons/io5'
@@ -7,11 +7,12 @@ import { useNavigate } from 'react-router-dom'
 import styles from './nav.module.scss'
 import Button from '../../Component/Button'
 import Container from '../../Component/Container/container'
+import { UpdateUserContext } from '../../Redux/authListener'
 
 function NavProfile({ header }) {
   const [icon, setIcon] = useState('')
+  const { xp } = useContext(UpdateUserContext)
   const navigate = useNavigate()
-
   const back = () => {
     navigate(-1)
   }
@@ -29,14 +30,14 @@ function NavProfile({ header }) {
     }
   }, [header])
   return (
-    <header className={`${styles.completed} bg alt-text`}>
+    <header className={`${styles.completed} bg text`}>
       <Container type="profile">
         <div className={`${styles.completedNav}`}>
           <div className={styles.navTop}>
             <Button buttonType="back" onClick={() => back()}>
               <RiArrowGoBackFill />
             </Button>
-            <p>XP 10</p>
+            <p className={styles.xp}>XP {xp}</p>
           </div>
           <div className={styles.content}>{icon}</div>
         </div>

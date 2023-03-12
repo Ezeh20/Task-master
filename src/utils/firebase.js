@@ -19,6 +19,7 @@ import {
   updateDoc,
   collection,
   serverTimestamp,
+  increment,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -40,6 +41,7 @@ provider.setCustomParameters({
 const storeUser = async (user, additionalInfo = {}) => {
   if (!user) return
   const userDocRef = doc(db, 'users', user.uid)
+  const q = collection(db, `users/${user.uid}/awards`)
   const userSnapShot = await getDoc(userDocRef)
 
   if (!userSnapShot.exists()) {
@@ -47,6 +49,7 @@ const storeUser = async (user, additionalInfo = {}) => {
     const created = new Date()
     try {
       await setDoc(userDocRef, {
+        XP: 0,
         displayName,
         email,
         created,
@@ -54,6 +57,10 @@ const storeUser = async (user, additionalInfo = {}) => {
         firstName: '',
         lastName: '',
         ...additionalInfo,
+      })
+      await setDoc(q, {
+        id: 0,
+        unlocked: 'hellloooo',
       })
     } catch (err) {
       return err
@@ -82,6 +89,9 @@ const updateTodos = async (toUpdate, uid) => {
   // get the needed todo document path to update
   await updateDoc(doc(db, `users/${uid}/todos/${toUpdate.updateId}`), {
     completed: true,
+  })
+  await updateDoc(doc(db, `users/${uid}`), {
+    XP: increment(10),
   })
 
   const userTodos = doc(collection(db, `users/${uid}/completedTodos`))

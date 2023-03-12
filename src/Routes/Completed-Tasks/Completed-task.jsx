@@ -61,6 +61,9 @@ function CompletedTask() {
                 <InfinitySpin radius="9" color="#999" ariaLabel="loading" />
               </div>
             )}
+            {completedTodos && completedTodos.length < 1 && (
+              <p className={`${styles.feedback} alt-text`}>No task completed</p>
+            )}
           </div>
         </Container>
       </Layout>

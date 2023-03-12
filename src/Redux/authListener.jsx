@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { createContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,6 +22,10 @@ export const UpdateUserContext = createContext({
   setEditModal: () => {},
   completedTodos: null,
   setCompletedTodos: () => {},
+  awards: null,
+  setAwards: () => {},
+  xp: null,
+  setXP: () => {},
 })
 
 export function UpdateUser({ children }) {
@@ -37,7 +42,9 @@ export function UpdateUser({ children }) {
   const [data, setData] = useState(null)
   const [userTodo, setUserTodo] = useState(null)
   const [completedTodos, setCompletedTodos] = useState(null)
+  const [awards, setAwards] = useState(null)
   const [main, setMain] = useState([])
+  const [xp, setXP] = useState(null)
   const [deleteModal, setDeleteModal] = useState(false)
   const [editModal, setEditModal] = useState(false)
   const uid = currentUser && currentUser.uid
@@ -56,6 +63,10 @@ export function UpdateUser({ children }) {
     setEditModal,
     completedTodos,
     setCompletedTodos,
+    awards,
+    setAwards,
+    xp,
+    setXP,
   }
 
   /**
@@ -65,6 +76,7 @@ export function UpdateUser({ children }) {
   useEffect(() => {
     const user = data && data.filter((currentData) => currentData.uid === uid)
     setMain(user)
+    user && user.map((itm) => setXP(itm.XP))
   }, [data, setMain, uid])
 
   // listen for any auth change then update the user object
@@ -138,6 +150,19 @@ export function UpdateUser({ children }) {
   useEffect(() => {
     setUserTodo(fetchedTodos)
   }, [fetchedTodos])
+
+  useEffect(() => {
+    const q = query(collection(db, `users/${userId}/awards`))
+
+    const subscribe = onSnapshot(q, (liveUpdate) => {
+      const list = []
+      liveUpdate.forEach((award) => {
+        list.push({ ...award.data() })
+      })
+      setAwards(list)
+    })
+    return () => subscribe()
+  }, [userId])
 
   /**
    * The state holds the fetched user todos which will be

@@ -6,7 +6,7 @@ import Button from '../../../Component/Button'
 import { UpdateUserContext } from '../../../Redux/authListener'
 
 function UserDetails() {
-  const { userId } = useContext(UpdateUserContext)
+  const { userId, xp } = useContext(UpdateUserContext)
 
   const navigate = useNavigate()
   const goBack = () => {
@@ -19,7 +19,7 @@ function UserDetails() {
         <Button buttonType="back" onClick={goBack}>
           <RiArrowGoBackFill />
         </Button>
-        <p>XP 10</p>
+        <p className={styles.xp}>XP {xp}</p>
       </div>
       <div className={styles.userInformation}>
         <div className={styles.userData}>

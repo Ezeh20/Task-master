@@ -48,7 +48,7 @@ function ProfileBody() {
           )
         })}
       <div className={styles.profileRoute}>
-        <Link to="completed">
+        <Link to="awards">
           <Button buttonType="Profile">
             Awards <IoIosArrowForward />
           </Button>

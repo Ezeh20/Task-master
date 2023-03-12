@@ -11,6 +11,7 @@ import { auth, db } from '../../utils/firebase'
 import styles from './profile.module.scss'
 import ProfileBody from './profileBody/Profile-Body'
 import UserDetails from './userDetails/User-Details'
+
 function Profile() {
   const {
     main,

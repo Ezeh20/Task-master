@@ -1,7 +1,13 @@
+@use '../../scss/utils/mixins'as *;
+
 .completed {
     height: 10rem;
     width: 100%;
     position: sticky;
+    top: 0;
+    @include view(768px){
+      
+    }
 
     .completedNav {
         display: flex;
@@ -13,12 +19,19 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            .xp{
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
         }
-        .content{
+
+        .content {
             display: flex;
             justify-content: center;
-            margin-top: .5rem;
-            font-size: 3.5rem;
+            margin-top: 2.5rem;
+            font-size: 100px;
+           
         }
     }
 }

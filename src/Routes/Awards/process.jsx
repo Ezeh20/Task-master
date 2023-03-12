@@ -23,28 +23,79 @@ function Process({ xp }) {
 
   useEffect(() => {
     // 1st unlockable
-    const action = async (id, message) => {
+    const action = async (id, message, img) => {
       const unlock = doc(collection(db, `users/${userId}/awards`))
       const exist = awards && awards.find((itm) => itm.id === id)
       if (exist) return
       await setDoc(unlock, {
         id,
         unlockable: message,
+        img,
       })
     }
 
     switch (xp) {
       case 10:
-        action(0, 'fedora')
+        action(
+          0,
+          'private',
+          'https://i.ibb.co/sjSp8Tf/E2-private-second-class.png'
+        )
         break
       case 20:
-        action(1, 'king')
+        action(
+          1,
+          'private-first-class',
+          'https://i.ibb.co/7RgK5HS/E3-private-first-class.png'
+        )
         break
       case 30:
-        action(2, 'olopa')
+        action(2, 'corporal', 'https://i.ibb.co/qkffvQD/E4-corporal.png')
         break
       case 40:
-        action(3, 'chief')
+        action(3, 'sergent', 'https://i.ibb.co/xjPpkc5/E5-sergeant.png')
+        break
+      case 50:
+        action(
+          4,
+          'staff-sergent',
+          'https://i.ibb.co/51N5LqK/E6-staff-sergeant.png'
+        )
+        break
+      case 60:
+        action(
+          5,
+          'sergent-first-class',
+          'https://i.ibb.co/ThGYT8T/E7-sergeant-first-class.png'
+        )
+        break
+      case 70:
+        action(
+          6,
+          'first-sergent',
+          'https://i.ibb.co/2PvKLGq/E8-master-sergeant.png'
+        )
+        break
+      case 80:
+        action(
+          7,
+          'master-sergent',
+          'https://i.ibb.co/2PvKLGq/E8-master-sergeant.png'
+        )
+        break
+      case 90:
+        action(
+          8,
+          'sergent-major',
+          'https://i.ibb.co/THNXJmy/E9-sergeant-major.png'
+        )
+        break
+      case 100:
+        action(
+          9,
+          'command-sergent',
+          'https://i.ibb.co/fYBYrxx/E9b-command-sergeant-major.png'
+        )
         break
       default:
     }

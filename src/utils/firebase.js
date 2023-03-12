@@ -41,7 +41,6 @@ provider.setCustomParameters({
 const storeUser = async (user, additionalInfo = {}) => {
   if (!user) return
   const userDocRef = doc(db, 'users', user.uid)
-  const q = collection(db, `users/${user.uid}/awards`)
   const userSnapShot = await getDoc(userDocRef)
 
   if (!userSnapShot.exists()) {
@@ -57,10 +56,6 @@ const storeUser = async (user, additionalInfo = {}) => {
         firstName: '',
         lastName: '',
         ...additionalInfo,
-      })
-      await setDoc(q, {
-        id: 0,
-        unlocked: 'hellloooo',
       })
     } catch (err) {
       return err

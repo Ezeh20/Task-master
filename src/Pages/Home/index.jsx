@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useContext, useState } from 'react'
 import { BsPen, BsFillDoorOpenFill } from 'react-icons/bs'
 import { AiFillLock } from 'react-icons/ai'

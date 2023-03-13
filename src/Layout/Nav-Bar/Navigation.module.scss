@@ -10,7 +10,7 @@
         top: 0;
 
         .nav {
-            @include flexAd(_, _, _, center, space-between);
+            @include flexAd(_, _, _, _, space-between);
             padding-top: 3rem;
             position: relative;
             z-index: 1;
@@ -19,17 +19,19 @@
                 letter-spacing: fn.rem(8);
                 color: $VeryLightGray;
                 font-size: 25px;
-                margin-top: fn.rem(1);
+                margin-top: fn.rem(13);
                 font-weight: 700
             }
 
             .userIntra {
-                @include flexAd(_, fn.rem(20), _, _, _);
+                @include flexAd(_, fn.rem(35), _, _, _);
 
                 .userAccount {
-                    width: 1.2rem;
-                    height: 1.2rem;
+                    width: 25px;
+                    height: 25px;
+                    margin-top: .5rem;
                     color: $VeryLightGray;
+
 
                     &:hover {
                         cursor: pointer;

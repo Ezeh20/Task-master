@@ -1,4 +1,6 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react'
+import PropTypes from 'prop-types'
 import styles from './awardsComponent.module.scss'
 
 function AwardsComponent({ awards }) {
@@ -16,8 +18,13 @@ function AwardsComponent({ awards }) {
               </div>
             )
           })}
+      {awards && awards.length < 1 && (
+        <p className={styles.awardme}>Complete tasks to unlock awards</p>
+      )}
     </div>
   )
 }
-
+AwardsComponent.propTypes = {
+  awards: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
 export default AwardsComponent

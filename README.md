@@ -57,10 +57,18 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [solution](https://github.com/Ezeh20/Task-master)
+- Live Site URL: [live](https://task-master-02.netlify.app/)
 
 ## My process
+- created my react app using vite
+- configured eslint
+- established my scss rules
+- identified the components i may need then made room for them
+- defined layout which consists of my navigation and container
+- initialized my firebase instance
+- implemented the design and features 
+- deployed 
 
 ### Built with
 
@@ -69,8 +77,6 @@ Users should be able to:
 - Firebase for backend
 - Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
 ### What I learned
 
@@ -83,7 +89,7 @@ I came across some road blocks while building this project especially the fireba
 
 #### i had alot of problems in implementing the XP/ranking system but i finally came up with this
 This function fires when the user's xp satisfies a condition but checks if that item exits before it fires
-if it exits, the function returns
+if it exits, the function returns.
 
 ```js
   useEffect(() => {
@@ -111,7 +117,5 @@ if it exits, the function returns
 This project can be refactored to be a note app later with added features.
 
 ## Author
-
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Frontend Mentor - [Ezeh20](https://www.frontendmentor.io/profile/Ezeh20)
+- Twitter - [Cii_jay11000](https://www.twitter.com/Cii_jay11000)

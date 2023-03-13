@@ -119,6 +119,10 @@ body {
     background: url(../../../public/images/bg-mobile-light.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+
+    @include view(768px){
+      background: url(../../../public/images/bg-desktop-light.jpg);
+    }
   }
  
   .cross {

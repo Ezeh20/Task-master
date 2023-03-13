@@ -108,7 +108,7 @@ if it exits, the function returns
 ```
 
 ### Continued development
-This project can be refactored to be a note app later with added features
+This project can be refactored to be a note app later with added features.
 
 ## Author
 

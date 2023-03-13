@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { BsPen, BsFillSunFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import { IoIosArrowForward } from 'react-icons/io'
-import { AiOutlineSetting, AiTwotoneDelete } from 'react-icons/ai'
+import { AiOutlineSetting } from 'react-icons/ai'
 import { GiExitDoor } from 'react-icons/gi'
 import { FaMoon } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,7 +13,7 @@ import { darkMode, lightMode } from '../../../Redux/themeReducer'
 import { LogOut } from '../../../utils/firebase'
 
 function ProfileBody() {
-  const { main, setDeleteModal, setLogged, setUserTodo, setEditModal } =
+  const { main, setLogged, setUserTodo, setEditModal } =
     useContext(UpdateUserContext)
   const theme = useSelector((state) => state.theme.value)
   const dispatch = useDispatch()
@@ -84,12 +84,6 @@ function ProfileBody() {
             </Button>
             <Button buttonType="Profile" onClick={() => ab()}>
               Log Out <GiExitDoor className={styles.actionBtn} />
-            </Button>
-            <Button
-              buttonType="Delete"
-              onClick={() => setDeleteModal((curr) => !curr)}
-            >
-              Delete account <AiTwotoneDelete className={styles.actionBtn} />
             </Button>
           </div>
         </div>

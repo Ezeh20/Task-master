@@ -4,11 +4,12 @@ import PropTypes from 'prop-types'
 import React, { useContext, useEffect } from 'react'
 import { UpdateUserContext } from '../../Redux/authListener'
 import { db } from '../../utils/firebase'
+import AwardsComponent from './AwardsComponent'
 import styles from './process.module.scss'
 
 function Process({ xp }) {
   const { userId, awards } = useContext(UpdateUserContext)
-  // console.log(awards)
+  console.log(xp)
 
   const newSet = new Set()
 
@@ -19,7 +20,7 @@ function Process({ xp }) {
       newSet.add(itm.id)
       return !final
     })
-  console.log(clean)
+    if(xp >=80) console.log('yes')
 
   useEffect(() => {
     // 1st unlockable
@@ -34,75 +35,63 @@ function Process({ xp }) {
       })
     }
 
-    switch (xp) {
-      case 10:
-        action(
-          0,
-          'private',
-          'https://i.ibb.co/sjSp8Tf/E2-private-second-class.png'
-        )
-        break
-      case 20:
-        action(
-          1,
-          'private-first-class',
-          'https://i.ibb.co/7RgK5HS/E3-private-first-class.png'
-        )
-        break
-      case 30:
-        action(2, 'corporal', 'https://i.ibb.co/qkffvQD/E4-corporal.png')
-        break
-      case 40:
-        action(3, 'sergent', 'https://i.ibb.co/xjPpkc5/E5-sergeant.png')
-        break
-      case 50:
-        action(
-          4,
-          'staff-sergent',
-          'https://i.ibb.co/51N5LqK/E6-staff-sergeant.png'
-        )
-        break
-      case 60:
-        action(
-          5,
-          'sergent-first-class',
-          'https://i.ibb.co/ThGYT8T/E7-sergeant-first-class.png'
-        )
-        break
-      case 70:
-        action(
-          6,
-          'first-sergent',
-          'https://i.ibb.co/2PvKLGq/E8-master-sergeant.png'
-        )
-        break
-      case 80:
-        action(
-          7,
-          'master-sergent',
-          'https://i.ibb.co/2PvKLGq/E8-master-sergeant.png'
-        )
-        break
-      case 90:
-        action(
-          8,
-          'sergent-major',
-          'https://i.ibb.co/THNXJmy/E9-sergeant-major.png'
-        )
-        break
-      case 100:
-        action(
-          9,
-          'command-sergent',
-          'https://i.ibb.co/fYBYrxx/E9b-command-sergeant-major.png'
-        )
-        break
-      default:
+    if (xp >= 10) {
+      action(
+        0,
+        'private',
+        'https://i.ibb.co/sjSp8Tf/E2-private-second-class.png'
+      )
+    } else if (xp >= 20) {
+      action(
+        1,
+        'private-first-class',
+        'https://i.ibb.co/7RgK5HS/E3-private-first-class.png'
+      )
+    } else if (xp >= 30) {
+      action(2, 'corporal', 'https://i.ibb.co/qkffvQD/E4-corporal.png')
+    } else if (xp >= 40) {
+      action(3, 'sergent', 'https://i.ibb.co/xjPpkc5/E5-sergeant.png')
+    } else if (xp >= 50) {
+      action(
+        4,
+        'staff-sergent',
+        'https://i.ibb.co/51N5LqK/E6-staff-sergeant.png'
+      )
+    } else if (xp >= 60) {
+      action(
+        5,
+        'sergent-first-class',
+        'https://i.ibb.co/ThGYT8T/E7-sergeant-first-class.png'
+      )
+    } else if (xp >= 70) {
+      action(
+        6,
+        'first-sergent',
+        'https://i.ibb.co/2PvKLGq/E8-master-sergeant.png'
+      )
+    } else if (xp >= 80) {
+      action(
+        7,
+        'master-sergent',
+        'https://i.ibb.co/2PvKLGq/E8-master-sergeant.png'
+      )
+    } else if (xp >= 90) {
+      action(
+        8,
+        'sergent-major',
+        'https://i.ibb.co/THNXJmy/E9-sergeant-major.png'
+      )
+    } else if (xp >= 100) {
+      action(
+        9,
+        'command-sergent',
+        'https://i.ibb.co/fYBYrxx/E9b-command-sergeant-major.png'
+      )
     }
   }, [xp, userId, awards])
   return (
     <div className={`${styles.process} alt-text`}>
-      <p>process</p>
+      <AwardsComponent awards={clean} />
     </div>
   )
 }

@@ -1,31 +1,21 @@
 /* eslint-disable no-unused-expressions */
-import { collection, deleteDoc, doc, updateDoc } from 'firebase/firestore'
+import { doc, updateDoc } from 'firebase/firestore'
 import React, { useContext, useEffect, useState } from 'react'
 import { InfinitySpin } from 'react-loader-spinner'
-import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import Container from '../../Component/Container/container'
 import Layout from '../../Layout/Layout'
 import { UpdateUserContext } from '../../Redux/authListener'
-import { auth, db } from '../../utils/firebase'
+import { db } from '../../utils/firebase'
 import styles from './profile.module.scss'
 import ProfileBody from './profileBody/Profile-Body'
 import UserDetails from './userDetails/User-Details'
 
 function Profile() {
-  const {
-    main,
-    deleteModal,
-    setDeleteModal,
-    setLogged,
-    setUserTodo,
-    editModal,
-    setEditModal,
-  } = useContext(UpdateUserContext)
+  const { main, deleteModal, setDeleteModal, editModal, setEditModal } =
+    useContext(UpdateUserContext)
 
-  const navigate = useNavigate()
   const [edit, setEdit] = useState('')
-  const [emailInput, setEmailInput] = useState('')
 
   useEffect(() => {
     main && main.map((mapped) => setEdit(mapped))
@@ -52,27 +42,6 @@ function Profile() {
       toast.error(err)
     }
     toast.success('updated successfully')
-  }
-
-  const DeleteAccount = async (emailinput, email) => {
-    if (emailinput !== email) {
-      toast.error('email mismatch')
-      return
-    }
-    const user = auth.currentUser
-    if (user) {
-      try {
-        await user.delete()
-        await deleteDoc(doc(db, `users/${user.uid}`))
-        toast.success('accout deleted')
-      } catch (error) {
-        toast.error(error)
-      }
-    }
-    navigate('/')
-    setLogged(null)
-    setUserTodo(null)
-    setDeleteModal((curr) => !curr)
   }
 
   return (
@@ -106,22 +75,7 @@ function Profile() {
                             <span>enter your email for confirmation</span>
                             <p>{email}</p>
                           </div>
-                          <input
-                            type="text"
-                            placeholder="enter your registered email"
-                            onChange={(e) =>
-                              setEmailInput(() => e.target.value)
-                            }
-                            className={styles.emailInput}
-                          />
                           <div className={styles.btnAction}>
-                            <button
-                              type="button"
-                              className={styles.buttonAction}
-                              onClick={() => DeleteAccount(emailInput, email)}
-                            >
-                              Delete
-                            </button>
                             <button
                               type="button"
                               className={`${styles.buttonAction} ${styles.btnalt}`}

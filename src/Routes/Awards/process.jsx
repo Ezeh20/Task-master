@@ -20,7 +20,6 @@ function Process({ xp }) {
       newSet.add(itm.id)
       return !final
     })
-    if(xp >=80) console.log('yes')
 
   useEffect(() => {
     // 1st unlockable
@@ -35,58 +34,72 @@ function Process({ xp }) {
       })
     }
 
-    if (xp >= 10) {
-      action(
-        0,
-        'private',
-        'https://i.ibb.co/sjSp8Tf/E2-private-second-class.png'
-      )
-    } else if (xp >= 20) {
-      action(
-        1,
-        'private-first-class',
-        'https://i.ibb.co/7RgK5HS/E3-private-first-class.png'
-      )
-    } else if (xp >= 30) {
-      action(2, 'corporal', 'https://i.ibb.co/qkffvQD/E4-corporal.png')
-    } else if (xp >= 40) {
-      action(3, 'sergent', 'https://i.ibb.co/xjPpkc5/E5-sergeant.png')
-    } else if (xp >= 50) {
-      action(
-        4,
-        'staff-sergent',
-        'https://i.ibb.co/51N5LqK/E6-staff-sergeant.png'
-      )
-    } else if (xp >= 60) {
-      action(
-        5,
-        'sergent-first-class',
-        'https://i.ibb.co/ThGYT8T/E7-sergeant-first-class.png'
-      )
-    } else if (xp >= 70) {
-      action(
-        6,
-        'first-sergent',
-        'https://i.ibb.co/2PvKLGq/E8-master-sergeant.png'
-      )
-    } else if (xp >= 80) {
-      action(
-        7,
-        'master-sergent',
-        'https://i.ibb.co/2PvKLGq/E8-master-sergeant.png'
-      )
-    } else if (xp >= 90) {
-      action(
-        8,
-        'sergent-major',
-        'https://i.ibb.co/THNXJmy/E9-sergeant-major.png'
-      )
-    } else if (xp >= 100) {
-      action(
-        9,
-        'command-sergent',
-        'https://i.ibb.co/fYBYrxx/E9b-command-sergeant-major.png'
-      )
+    if (xp) {
+      switch (true) {
+        case xp >= 10:
+          action(
+            0,
+            'private',
+            'https://i.ibb.co/sjSp8Tf/E2-private-second-class.png'
+          )
+          break
+        case xp >= 20:
+          action(
+            1,
+            'private-first-class',
+            'https://i.ibb.co/7RgK5HS/E3-private-first-class.png'
+          )
+          break
+        case xp >= 30:
+          action(2, 'corporal', 'https://i.ibb.co/qkffvQD/E4-corporal.png')
+          break
+        case xp >= 40:
+          action(3, 'sergent', 'https://i.ibb.co/xjPpkc5/E5-sergeant.png')
+          break
+        case xp >= 50:
+          action(
+            4,
+            'staff-sergent',
+            'https://i.ibb.co/51N5LqK/E6-staff-sergeant.png'
+          )
+          break
+        case xp >= 60:
+          action(
+            5,
+            'sergent-first-class',
+            'https://i.ibb.co/ThGYT8T/E7-sergeant-first-class.png'
+          )
+          break
+        case xp >= 70:
+          action(
+            6,
+            'first-sergent',
+            'https://i.ibb.co/2PvKLGq/E8-master-sergeant.png'
+          )
+          break
+        case xp >= 80:
+          action(
+            7,
+            'master-sergent',
+            'https://i.ibb.co/2PvKLGq/E8-master-sergeant.png'
+          )
+          break
+        case xp >= 90:
+          action(
+            8,
+            'sergent-major',
+            'https://i.ibb.co/THNXJmy/E9-sergeant-major.png'
+          )
+          break
+        case xp >= 100:
+          action(
+            9,
+            'command-sergent',
+            'https://i.ibb.co/fYBYrxx/E9b-command-sergeant-major.png'
+          )
+          break
+        default:
+      }
     }
   }, [xp, userId, awards])
   return (
